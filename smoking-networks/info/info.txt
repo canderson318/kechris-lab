@@ -1,0 +1,10 @@
+I have prepared a OneDrive folder that you can access here: ChristianAnderson. This folder has a RawData subfolder with the following files:
+COPDGene_P2_LT20miss_knnImp_NoOut_metabs_20211021_ShareWithChristian.csv
+This file contains metabolite measurements from 995 metabolites for 1125 subjects from Phase 2 of COPDGene
+COPDGene_P2_SM_NS_Long_Oct23_ShareWithChristian.csv
+This file contains the relevant clinical data from Phase 2 for these subjects. 
+COPDGene_P2_MetaboliteInformation_20211021.csv
+This file contains the metadata of each metabolite
+
+There is another folder named RScripts which contains a file DataPreProcessCodes.R that contains a function which can allow you to pre-process the data by log-transformation, adjusting for necessary covariates, and standardization of the features. For your analysis, you can adjust the metabolite measurements for age, sex, BMI, clinic center, total leukocyte counts, percentage of each leukocyte type, and hemoglobin. I have included these variables in the clinical data, apart from FEV1 and GOLD stage variables.
+

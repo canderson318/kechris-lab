@@ -1,0 +1,33 @@
+name: smoknet-env
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - r-base=4.3
+  - r-tidyverse
+  - r-pacman
+  - r-devtools
+  - r-janitor
+  - r-cowplot
+  - r-ggbeeswarm
+  - r-patchwork
+  - r-viridis
+  - r-ggridges
+  - r-ggnewscale
+  - r-magrittr
+  - r-zeallot
+  
+  - python=3.9
+  - igl
+  - matplotlib
+  - pywavelets
+  - networkx
+  
+  - liblapack
+  - libblas
+  - openblas
+  - lapack
+
+
+# specified here: https://github.com/sealx017/RCFGL?tab=readme-ov-file
