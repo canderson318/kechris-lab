@@ -18,12 +18,21 @@ dependencies:
   - r-magrittr
   - r-zeallot
   
-  - python=3.9
+  - python>3.9
+  - pandas
+  - scikit-learn
+  - numpy
   - igl
   - matplotlib
   - pywavelets
   - networkx
-  
+  - ipython
+  - ipywidgets
+  - jupyterlab
+  - jupyter_contrib_nbextensions
+  - jupytext
+  - nodejs
+
   - liblapack
   - libblas
   - openblas
