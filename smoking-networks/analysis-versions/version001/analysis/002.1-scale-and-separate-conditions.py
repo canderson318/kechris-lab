@@ -2,18 +2,16 @@
 
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 import sys
+from pathlib import Path
 import os
+import re
 from numpy.typing import NDArray
 from typing import Any
-import re
-import seaborn as sns
-import matplotlib.pyplot as plt
-from pathlib import Path
-from sklearn.preprocessing import StandardScaler
 
-root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
-
+# root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
+root = Path('/projects/canderson2@xsede.org/kechris-lab/smoking-networks/')
 os.chdir(root / 'analysis-versions/version001')
 
 # make results/processed-data dirs
@@ -48,11 +46,11 @@ nev_smok_mask = colData.smoking_status == 0
 form_smok_mask = colData.smoking_status == 1
 curr_smok_mask = colData.smoking_status == 2
 
-print(f"{nev_smok_mask.sum()} never smoked\n{form_smok_mask.sum()} smoked in the past\n{curr_smok_mask.sum()} currently smoke")
+print(f"\n{nev_smok_mask.sum()} never smoked\n{form_smok_mask.sum()} smoked in the past\n{curr_smok_mask.sum()} currently smoke\n")
 
-nev_smok_logcounts = adjusted_logcounts.loc[nev_smok_mask , :]
-curr_smok_logcounts = adjusted_logcounts.loc[curr_smok_mask , :]
-form_smok_logcounts = adjusted_logcounts.loc[form_smok_mask , :]
+nev_smok_logcounts = adjusted_logcounts.iloc[nev_smok_mask.values , :]
+curr_smok_logcounts = adjusted_logcounts.loc[curr_smok_mask.values , :]
+form_smok_logcounts = adjusted_logcounts.loc[form_smok_mask.values , :]
 
 # Scaling the dataframes such that the columns have 0 mean
 def process(df: pd.DataFrame)->pd.DataFrame:

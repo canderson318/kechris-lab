@@ -4,3 +4,4 @@
 *.xlsx
 RCFGL/
 AIC*.txt
+*lambda-grid.txt
