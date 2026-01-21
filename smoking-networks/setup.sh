@@ -1,11 +1,15 @@
 #!/bin/bash
 
+# root=/Users/canderson/Documents/school/local-kechris-lab/kechris-lab/
+ROOT=/projects/canderson2@xsede.org/kechris-lab/
+
+cd "$ROOT/smoking-networks/" || exit 1
+
 ### Create Environment ###
 conda env create -f environment.yaml
 
 ### Activate Environment ###
-# workaround `conda init`
-source "$(conda info --base)/etc/profile.d/conda.sh" 
+source "$(conda info --base)/etc/profile.d/conda.sh"  # workaround `conda init`
 conda activate smoknet-env
 
 ### Install other dependencies ###
@@ -23,4 +27,11 @@ dir="RCFGL"
 git clone https://github.com/sealx017/RCFGL.git
 
 ### Install gnu parallel if needed and on mac ###
-brew install parallel
+[ "$(uname -s)" == "Darwin" ] && brew install parallel
+
+### Install R dependencies ###
+Rscript << 'EOF'
+install.packages("BiocManager")
+BiocManager::install('SummarizedExperiment')
+install.packages("qs")
+EOF
