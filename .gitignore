@@ -2,4 +2,5 @@
 *.csv
 *.qs
 *.xlsx
+AIC*\d+.txt
 RCFGL/
