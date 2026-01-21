@@ -2,5 +2,5 @@
 *.csv
 *.qs
 *.xlsx
-AIC*\d+.txt
 RCFGL/
+smoking-networks/analysis-versions/version001/results/002/aics/AIC*.txt
