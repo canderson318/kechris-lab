@@ -17,7 +17,6 @@ dependencies:
   - r-ggnewscale
   - r-magrittr
   - r-zeallot
-  - bioconductor-summarizedexperiment
 
 
   - python=3.9
