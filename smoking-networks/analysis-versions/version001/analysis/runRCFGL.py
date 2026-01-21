@@ -61,7 +61,7 @@ def init_worker():
           [x.shape for x in GLOBAL_DATA])
 
 
-init_worker()
+# init_worker()
 
 #\\\
 #\\\
@@ -73,8 +73,8 @@ def run_single(params):
 
     l1,l2 = params
 
-    counts_list = GLOBAL_DATA
-    # counts_list = load_dat()
+    # counts_list = GLOBAL_DATA
+    counts_list = load_dat()
 
     _, AIC, _ = RCFGL(A = counts_list, 
                    ADMMmaxiter = 100, 
