@@ -61,36 +61,36 @@ at-risk for COPD.
 
 **References**
 
-1.{.prefix} S. Antwi, S. E. Steck, and K. Heidari,
+1. S. Antwi, S. E. Steck, and K. Heidari,
   "Association between prevalence of chronic obstructive pulmonary
   disease and health-related quality of life, South Carolina, 2011,"
   *Prev. Chronic Dis.*, vol. 10, no. 130192, p. E215, Dec.
-  2013.]{#loc-9}
-1.{.prefix} Y. Zhuang *et al.*, "Deep learning on
+  2013.    
+1. Y. Zhuang *et al.*, "Deep learning on
   graphs for multi-omics classification of COPD," *PLoS One*, vol. 18,
-  no. 4, p. e284563, Apr. 2023.]{#loc-10}
-1.{.prefix} W. H. Thompson and S. St-Hilaire,
+  no. 4, p. e284563, Apr. 2023.  
+1. W. H. Thompson and S. St-Hilaire,
   "Prevalence of chronic obstructive pulmonary disease and tobacco use
   in veterans at Boise Veterans Affairs Medical Center," *Respir. Care*,
-  vol. 55, no. 5, pp. 555--560, May 2010.]{#loc-11}
-1.{.prefix} A. Agustí *et al.*, "Global initiative
+  vol. 55, no. 5, pp. 555--560, May 2010.  
+1. A. Agustí *et al.*, "Global initiative
   for chronic obstructive lung disease 2023 report: GOLD executive
   summary," *Eur. Respir. J.*, vol. 61, no. 4, p. 2300239, Apr.
-  2023.]{#loc-12}
-1.{.prefix} S. Godbole *et al.*, "A metabolomic
+  2023.  
+1. S. Godbole *et al.*, "A metabolomic
   severity score for airflow obstruction and emphysema," *Metabolites*,
-  vol. 12, no. 5, p. 368, Apr. 2022.]{#loc-13}
-1.{.prefix} Global Initiative for Chronic
+  vol. 12, no. 5, p. 368, Apr. 2022.  
+1. Global Initiative for Chronic
   Obstructive Lung Disease, *Pocket guide to COPD diagnosis, management,
   and prevention*. Global Initiative for Chronic Obstructive Lung
-  Disease, 2025.]{#loc-14}
-1.{.prefix} M. A. Miller *et al.*, "Gene and
+  Disease, 2025.  
+1. M. A. Miller *et al.*, "Gene and
   metabolite time-course response to cigarette smoking in mouse lung and
-  plasma," *PLoS One*, vol. 12, no. 6, p. e178281, June 2017.]{#loc-15}
-1.{.prefix} Y. Lyu *et al.*, "Condition-adaptive
+  plasma," *PLoS One*, vol. 12, no. 6, p. e178281, June 2017.  
+1. Y. Lyu *et al.*, "Condition-adaptive
   fused graphical lasso (CFGL): An adaptive procedure for inferring
   condition-specific gene co-expression network," *PLoS Comput. Biol.*,
-  vol. 14, no. 9, p. e1006436, Sept. 2018.]{#loc-16}
+  vol. 14, no. 9, p. e1006436, Sept. 2018.  
 
 ### Background and Significance
 
