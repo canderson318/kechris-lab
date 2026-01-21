@@ -1,5 +1,11 @@
 # kechris-lab
 
+Research project during my second rotation with Professor Katerina Kechris analyzing smoking effect on metabolite interactions using the [RCFGL](https://doi.org/10.1371/journal.pcbi.1010758) tool. 
+
+
+## Research Proposal
+
+
 ### Introduction
 
 Chronic obstructive pulmonary disease (COPD) is a leading cause of
