@@ -1,21 +1,15 @@
 
-if(!requireNamespace("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
-
-if(!'SummarizedExperiment' %in% installed.packages())
-  BiocManager::install('SummarizedExperiment')
-
-if(!'qs' %in% installed.packages())
-  install.packages("qs")
-
-
 pacman::p_load(
-  dplyr, readr, stringr, tidyr, ggplot2, magrittr, zeallot, tibble, SummarizedExperiment, qs, janitor,
+  dplyr, readr, stringr, tidyr, ggplot2, magrittr, zeallot, tibble, janitor,
                install = F)
 
 rm(list= ls()); gc()
 
-setwd('/Users/canderson/Documents/school/local-kechris-lab/rotation-project/analysis-versions/version001')
+
+# wd_path = '/Users/canderson/Documents/school/local-kechris-lab/rotation-project/analysis-versions/version001'
+wd_path = '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/analysis-versions/version001'
+
+setwd(wd_path)
 
 #///
 #///
@@ -103,13 +97,8 @@ rowData = rowData[rowData$metab_id %in% rownames(adjusted_matrix)  ,  ]
 # filter colData for sids in counts
 colData = colData[ colData$sid %in% colnames(adjusted_matrix) , ]
 
-if(!(nrow(rowData) == nrow(adjusted_matrix)) & !(nrow(colData) == ncol(adjusted_matrix)) ){
-  stop("Dims Don't Match!!!")
-}
-
-if(!all(identical(colData$sid, colnames(adjusted_matrix)), identical(rowData$metab_id, rownames(adjusted_matrix))) ){
-  stop("Dimnames do not match row/col data!!!")
-}
+if(!(nrow(rowData) == nrow(adjusted_matrix)) & !(nrow(colData) == ncol(adjusted_matrix)) )                            stop("Dims Don't Match!!!")
+if(!all(identical(colData$sid, colnames(adjusted_matrix)), identical(rowData$metab_id, rownames(adjusted_matrix))) )  stop("Dimnames do not match row/col data!!!")
 
 # include raw counts too
 counts_filtered <- data.matrix(t(counts[, -1]))
@@ -118,19 +107,7 @@ counts_filtered <- counts_filtered[rownames(counts_filtered)%in%rownames(adjuste
                                    colnames(counts_filtered)%in%colnames(adjusted_matrix)]
 
 
-if(!all(identical(rownames(counts_filtered), rownames(adjusted_matrix)), 
-        identical(colnames(counts_filtered), colnames(adjusted_matrix)) ) ){
-  stop("Raw counts and adjusted do not match!!!")
-}
-
-
-se <- SummarizedExperiment(assays = list(counts = counts_filtered, adjusted_logcounts = adjusted_matrix),
-                           rowData = rowData, 
-                           colData = colData)
-
-# add datadict
-metadata(se) <- list(data_dictionary = dat_dict)
-
+if(!all(identical(rownames(counts_filtered), rownames(adjusted_matrix)), identical(colnames(counts_filtered), colnames(adjusted_matrix)) ) ) stop("Raw counts and adjusted do not match!!!")
 
 # ///
 # ///
@@ -139,15 +116,16 @@ metadata(se) <- list(data_dictionary = dat_dict)
 # ///
 
 # unamed have 'X-\d+' pattern
-unnamed <- rowData(se)$chemical_name %>% 
+unnamed <- rowData$chemical_name %>% 
   grep("^X-\\d+", ., value = TRUE)
 
-unnamed_metab_ids <- rowData(se)$metab_id[rowData(se)$chemical_name %in% unnamed]
+unnamed_metab_ids <- rowData$metab_id[rowData$chemical_name %in% unnamed]
 
-se <- se[!rownames(se) %in% unnamed_metab_ids, ]
+adjusted_matrix <- adjusted_matrix[!rownames(adjusted_matrix) %in% unnamed_metab_ids, ]
+rowData <- rowData[!rowData$metab_id %in% unnamed_metab_ids, ]
 
 nrow(adjusted_matrix)- length(unnamed) # 758
-dim(se) # 758 1117
+dim(adjusted_matrix) # 758 1117
 
 
 #///
@@ -160,11 +138,9 @@ dim(se) # 758 1117
   {if(!dir.exists(.)) dir.create(.)}
 
 
-qsave(x = se, file = "processed-data/001/se001.qs", preset = 'high')
-
 # each table separately 
-write.csv(assays(se)$counts, 'processed-data/001/raw_counts.csv')
-write.csv(assays(se)$adjusted_logcounts, 'processed-data/001/adjusted_logcounts.csv')
-write.csv(rowData(se), 'processed-data/001/rowData.csv')
-write.csv(colData(se), 'processed-data/001/colData.csv')
+# write.csv(counts_filtered, 'processed-data/001/raw_counts.csv')
+write.csv(adjusted_matrix, 'processed-data/001/adjusted_logcounts.csv')
+write.csv(rowData, 'processed-data/001/rowData.csv')
+write.csv(colData, 'processed-data/001/colData.csv')
 
