@@ -18,20 +18,20 @@ dependencies:
   - r-magrittr
   - r-zeallot
   
-  - python>3.9
+  - python=3.9
   - pandas
-  - scikit-learn
   - numpy
+  - scikit-learn
   - igl
-  - matplotlib
+  - cppyy
   - pywavelets
   - networkx
   - ipython
+  - matplotlib
+  - seaborn 
   - ipywidgets
-  - jupyterlab
-  - jupyter_contrib_nbextensions
-  - jupytext
   - nodejs
+  - ipykernel
 
   - liblapack
   - libblas
