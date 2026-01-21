@@ -16,6 +16,8 @@ import numpy as np
 from itertools import product
 
 vals = np.logspace(-3, 0, 20)
+# vals = np.linspace(0,1, 20)
+
 with open("results/002/lambda-grid.txt", "w") as f:
   for l1, l2 in product(vals, vals):
     f.write(f"{l1:.6g},{l2:.6g}\n")
