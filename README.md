@@ -3,19 +3,19 @@
 ### Introduction
 
 Chronic obstructive pulmonary disease (COPD) is a leading cause of
-illness and death in the United States [[\[1\]]. It comprises
+illness and death in the United States \[1\]. It comprises
 two conditions, chronic bronchitis and emphysema which frequently
-co-occur [[\[1\]], and is a heterogenous disease with respiratory
+co-occur \[1\], and is a heterogenous disease with respiratory
 symptoms that lead to airflow limitation due to abnormalities of the
-airway and/or aveoli [[\[2\]]. Inhalation of
+airway and/or aveoli \[2\]. Inhalation of
 noxious particles or gas is the primary etiologic driver, with cigarette
 smoke being the most important environmental risk factor
-[[\[1\]]. Adjusting for age and sex, smokers are 3.18 times
-more likely to develop COPD than non-smokers [[\[3\]] yet fewer than
-50% of smokers develop the disease [[\[4\]]. Males are also
+\[1\]. Adjusting for age and sex, smokers are 3.18 times
+more likely to develop COPD than non-smokers \[3\] yet fewer than
+50% of smokers develop the disease \[4\]. Males are also
 1.48 times more likely to develop the disease compared to females, and
 the odds of developing COPD increase with age
-[[\[3\]]. COPD's incomplete penetrance suggests that
+\[3\]. COPD's incomplete penetrance suggests that
 downstream responses to smoking, rather than exposure alone, may mediate
 progression to clinical COPD.
 
@@ -23,15 +23,15 @@ Although the lung is the main organ affected, the clinical burden of
 COPD extends beyond the respiratory system. Comorbidities such as muscle
 wasting, cardiovascular disease, osteoporosis, and depression are
 consistent with generalized metabolic disturbance
-[[\[5\]]. Previous studies have found hundreds of
+\[5\]. Previous studies have found hundreds of
 metabolites associated with lung function measures like Forced
 Expiratory Volume (FEV) and Forced Vital Capacity (FVC), and
 multi-metabolite signatures can predict COPD severity
-[[\[5\]],
-[[\[6\]]. Nicotine has a short half-life so metabolomic
+\[5\],
+\[6\]. Nicotine has a short half-life so metabolomic
 profiles of current smokers typically reflect its more stable
 metabolite, cotinine (and related derivatives), which serves as a
-reliable biomarker of recent tobacco exposure [[\[7\]]. Many analyses,
+reliable biomarker of recent tobacco exposure \[7\]. Many analyses,
 however, miss disease-relevant coordination among metabolites and focus
 on single metabolites. Smoking likely reorganizes the inherently
 networked metabolite relationships through processes like inflammation
@@ -49,7 +49,7 @@ measured on the Metabolon platform to infer condition-specific
 metabolite networks using a graphical lasso model that finds shared and
 condition-specific structure via fusion and condition-adaptive penalties
 (Condition-Adaptive Fused Graphical Lasso
-(CFGL))[[\[8\]]. This approach extends gene co-expression concepts
+(CFGL))\[8\]. This approach extends gene co-expression concepts
 to metabolomics by modeling conditional dependencies among metabolites.
 The condition-specific network structure will reveal how biological
 processes are differentially active across smoking status and disease
@@ -62,33 +62,33 @@ at-risk for COPD.
 **References**
 
 ::: {.section role="doc-bibliography"}
-- [[[[\[1\]]]{.prefix} S. Antwi, S. E. Steck, and K. Heidari,
+- \[1\]{.prefix} S. Antwi, S. E. Steck, and K. Heidari,
   "Association between prevalence of chronic obstructive pulmonary
   disease and health-related quality of life, South Carolina, 2011,"
   *Prev. Chronic Dis.*, vol. 10, no. 130192, p. E215, Dec.
   2013.]{#loc-9}
-- [[[[\[2\]]]{.prefix} Y. Zhuang *et al.*, "Deep learning on
+- \[2\]{.prefix} Y. Zhuang *et al.*, "Deep learning on
   graphs for multi-omics classification of COPD," *PLoS One*, vol. 18,
   no. 4, p. e284563, Apr. 2023.]{#loc-10}
-- [[[[\[3\]]]{.prefix} W. H. Thompson and S. St-Hilaire,
+- \[3\]{.prefix} W. H. Thompson and S. St-Hilaire,
   "Prevalence of chronic obstructive pulmonary disease and tobacco use
   in veterans at Boise Veterans Affairs Medical Center," *Respir. Care*,
   vol. 55, no. 5, pp. 555--560, May 2010.]{#loc-11}
-- [[[[\[4\]]]{.prefix} A. Agustí *et al.*, "Global initiative
+- \[4\]{.prefix} A. Agustí *et al.*, "Global initiative
   for chronic obstructive lung disease 2023 report: GOLD executive
   summary," *Eur. Respir. J.*, vol. 61, no. 4, p. 2300239, Apr.
   2023.]{#loc-12}
-- [[[[\[5\]]]{.prefix} S. Godbole *et al.*, "A metabolomic
+- \[5\]{.prefix} S. Godbole *et al.*, "A metabolomic
   severity score for airflow obstruction and emphysema," *Metabolites*,
   vol. 12, no. 5, p. 368, Apr. 2022.]{#loc-13}
-- [[[[\[6\]]]{.prefix} Global Initiative for Chronic
+- \[6\]{.prefix} Global Initiative for Chronic
   Obstructive Lung Disease, *Pocket guide to COPD diagnosis, management,
   and prevention*. Global Initiative for Chronic Obstructive Lung
   Disease, 2025.]{#loc-14}
-- [[[[\[7\]]]{.prefix} M. A. Miller *et al.*, "Gene and
+- \[7\]{.prefix} M. A. Miller *et al.*, "Gene and
   metabolite time-course response to cigarette smoking in mouse lung and
   plasma," *PLoS One*, vol. 12, no. 6, p. e178281, June 2017.]{#loc-15}
-- [[[[\[8\]]]{.prefix} Y. Lyu *et al.*, "Condition-adaptive
+- \[8\]{.prefix} Y. Lyu *et al.*, "Condition-adaptive
   fused graphical lasso (CFGL): An adaptive procedure for inferring
   condition-specific gene co-expression network," *PLoS Comput. Biol.*,
   vol. 14, no. 9, p. e1006436, Sept. 2018.]{#loc-16}
@@ -98,20 +98,20 @@ at-risk for COPD.
 
 Chronic obstructive pulmonary disease (COPD) is a leading cause of
 illness and death in the United States
-[[\[1\]]. It comprises two conditions, chronic bronchitis
+\[1\]. It comprises two conditions, chronic bronchitis
 and emphysema which frequently co-occur
-[[\[1\]], and is a heterogenous disease with respiratory
+\[1\], and is a heterogenous disease with respiratory
 symptoms that lead to airflow limitation due to abnormalities of the
 airway and/or aveoli
-[[\[2\]]. Inhalation of noxious particles or gas is the
+\[2\]. Inhalation of noxious particles or gas is the
 primary etiologic driver, with cigarette smoke being the most important
 environmental risk factor
-[[\[1\]]. Adjusting for age and sex, smokers are 3.18 times
+\[1\]. Adjusting for age and sex, smokers are 3.18 times
 more likely to develop COPD than non-smokers
-[[\[3\]] yet fewer than 50% of smokers develop the disease
-[[\[4\]]. Males are also 1.48 times more likely to develop
+\[3\] yet fewer than 50% of smokers develop the disease
+\[4\]. Males are also 1.48 times more likely to develop
 the disease compared to females, and the odds of developing COPD
-increase with age [[\[3\]]. COPD's incomplete penetrance suggests that
+increase with age \[3\]. COPD's incomplete penetrance suggests that
 downstream responses to smoking, rather than exposure alone, may mediate
 progression to clinical COPD.
 
@@ -119,16 +119,16 @@ Although the lung is the main organ affected, the clinical burden of
 COPD extends beyond the respiratory system. Comorbidities such as muscle
 wasting, cardiovascular disease, osteoporosis, and depression are
 consistent with generalized metabolic disturbance
-[[\[5\]]. Previous studies have found hundreds of
+\[5\]. Previous studies have found hundreds of
 metabolites associated with lung function measures like Forced
 Expiratory Volume (FEV) and Forced Vital Capacity (FVC), and
 multi-metabolite signatures can predict COPD severity
-[[\[5\]],
-[[\[6\]]. Nicotine has a short half-life so metabolomic
+\[5\],
+\[6\]. Nicotine has a short half-life so metabolomic
 profiles of current smokers typically reflect its more stable
 metabolite, cotinine (and related derivatives), which serves as a
 reliable biomarker of recent tobacco exposure
-[[\[7\]]. Many analyses, however, miss disease-relevant
+\[7\]. Many analyses, however, miss disease-relevant
 coordination among metabolites and focus on single metabolites. Smoking
 likely reorganizes the inherently networked metabolite relationships
 through processes like inflammation and oxidative stress, revealing
