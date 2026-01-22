@@ -81,6 +81,6 @@ plot_grid(res,'√AIC','Interpolated AIC surface','results/002/AIC-grid.png')
 plot_grid(res.iloc[(res.l1.values<.08) & (res.l2.values <.1) , :], '√AIC','Interpolated AIC surface (zoomed)','results/002/zoomed-AIC-grid.png')
 
 # look at area where AIC small again
-plot_grid(res.iloc[(res.l1.values<.05) & (res.l2.values <.03) , :], 
+plot_grid(res.iloc[(res.l1.values<.06) & (res.l2.values <.04) , :], 
     '√AIC','Interpolated AIC surface (zoomed)','results/002/2x-zoomed-AIC-grid.png')
 
