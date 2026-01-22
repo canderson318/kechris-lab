@@ -56,7 +56,8 @@ def plot_grid(df, col_label, title, filename):
         points=(df.l1, df.l2),
         values=np.sqrt(df.AIC),
         xi=(L1, L2),
-        method='linear'   # 'nearest' or 'cubic' also possible
+        # method='linear'   # 'nearest' 'linear' 'cubic'
+        method='cubic'
     )
 
 
