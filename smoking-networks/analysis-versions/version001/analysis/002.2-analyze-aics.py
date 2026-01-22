@@ -8,7 +8,8 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 from scipy.interpolate import griddata
 import seaborn as sns
-
+import plotly.graph_objects as go
+import kaleido
 
 # assign highest level directory
 # root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
@@ -83,4 +84,68 @@ plot_grid(res.iloc[(res.l1.values<.08) & (res.l2.values <.1) , :], '√AIC','Int
 # look at area where AIC small again
 plot_grid(res.iloc[(res.l1.values<.06) & (res.l2.values <.04) , :], 
     '√AIC','Interpolated AIC surface (zoomed)','results/002/2x-zoomed-AIC-grid.png')
+
+
+# interactive plot
+df, col_label, title, filename = (
+    res.iloc[(res.l1.values<.06) & (res.l2.values <.04) , :], 
+    '√AIC',
+    'Interpolated AIC surface (zoomed)',
+    'results/002/interactive-2x-zoomed-AIC-grid.png'
+)
+
+# interpolation grid
+l1_grid = np.linspace(df.l1.min(), df.l1.max(), 500)
+l2_grid = np.linspace(df.l2.min(), df.l2.max(), 500)
+L1, L2 = np.meshgrid(l1_grid, l2_grid)
+
+AIC_grid = griddata(
+    points=(df.l1, df.l2),
+    values=np.sqrt(df.AIC),
+    xi=(L1, L2),
+    method='linear'
+)
+
+fig = go.Figure()
+
+# interpolated surface
+fig.add_trace(
+    go.Heatmap(
+        x=l1_grid,
+        y=l2_grid,
+        z=AIC_grid,
+        colorscale="Viridis",
+        colorbar=dict(title=col_label),
+        zsmooth="best"
+    )
+)
+
+# original sample points
+fig.add_trace(
+    go.Scatter(
+        x=df.l1,
+        y=df.l2,
+        mode="markers",
+        marker=dict(
+            size=6,
+            color=np.sqrt(df.AIC),
+            colorscale="Viridis",
+            showscale=False,
+            line=dict(width=0.5, color="black")
+        ),
+        name="Observed points",
+        hovertemplate="l1=%{x}<br>l2=%{y}<br>√AIC=%{marker.color:.3f}<extra></extra>"
+    )
+)
+
+fig.update_layout(
+    title=title,
+    xaxis_title="l1",
+    yaxis_title="l2",
+    template="plotly_white"
+)
+
+if filename is not None:
+    fig.write_image(filename)
+
 
