@@ -91,7 +91,7 @@ df, col_label, title, filename = (
     res.iloc[(res.l1.values<.06) & (res.l2.values <.04) , :], 
     '√AIC',
     'Interpolated AIC surface (zoomed)',
-    'results/002/interactive-2x-zoomed-AIC-grid.png'
+    'results/002/interactive-2x-zoomed-AIC-grid.html'
 )
 
 # interpolation grid
@@ -146,6 +146,6 @@ fig.update_layout(
 )
 
 if filename is not None:
-    fig.write_image(filename)
+    fig.write_html(filename)
 
 
