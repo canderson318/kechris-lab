@@ -23,10 +23,19 @@ echo -e "\n•••Running $F•••\n"
 python $F 
 echo -e "\n•••$F Done•••\n"
 
-# # >>> Run RCFGL lambda grid search
-# F=analysis/002.1.1-slurm.sh
+# >>> Run RCFGL lambda grid search
+F=analysis/002.1.1-slurm.sh
+echo Running $F
+sbatch $F
+echo -e "\n•••$F Done•••\n"
+
+# # >>> Run lambda grid aic analysis
+# F=analysis/002.2-analyze-aics.py
 # echo Running $F
 # bash $F
 # echo -e "\n•••$F Done•••\n"
 
-# >>> 
+
+echo -e "\n\\\\\\\\\\\\\n••• Pipeline Complete •••\n\\\\\\\\\\\\\n"
+
+echo -e "Run \`squeeze\` to watch slurm job"

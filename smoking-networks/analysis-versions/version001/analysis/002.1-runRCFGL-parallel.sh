@@ -38,7 +38,8 @@ import numpy as np
 import os
 from itertools import product
 
-vals = np.logspace(-3, 0, int(os.environ["NUM_VALS"]))
+# vals = np.logspace(-3, 0, int(os.environ["NUM_VALS"]))
+vals = np.linspace(0,1, int(os.environ["NUM_VALS"]))
 
 with open("results/002/lambda-grid.txt", "w") as f:
   for l1, l2 in product(vals, vals):

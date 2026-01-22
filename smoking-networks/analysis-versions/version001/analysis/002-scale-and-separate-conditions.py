@@ -1,4 +1,4 @@
-#!/Users/canderson/miniconda3/envs/smoknet-env/bin/python
+#!/projects/canderson2@xsede.org/software/anaconda/envs/smoknet-env/bin/python
 
 import pandas as pd
 import numpy as np
@@ -54,10 +54,14 @@ form_smok_logcounts = adjusted_logcounts.loc[form_smok_mask.values , :]
 
 # Scaling the dataframes such that the columns have 0 mean
 def process(df: pd.DataFrame)->pd.DataFrame:
-    scaler = StandardScaler(with_std=False)
-    df_scaled = scaler.fit_transform(df)
-    df_scaled = pd.DataFrame(df_scaled, index = df.index, columns = df.columns)
-    return df_scaled
+    if df.shape[0]>0:
+        scaler = StandardScaler(with_std=False)
+        df_out = scaler.fit_transform(df)
+        df_out = pd.DataFrame(df, index = df.index, columns = df.columns)
+    else:
+        df_out = df
+    
+    return df_out
 
 nev_scaled = process(nev_smok_logcounts)
 form_scaled = process(form_smok_logcounts)

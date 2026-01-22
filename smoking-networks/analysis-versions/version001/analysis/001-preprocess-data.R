@@ -40,11 +40,6 @@ suppressMessages(
 # data dictionary
 dat_dict <- read.xlsx("../../raw-data/DataDictionary.xlsx")
 
-# make ids lowercase like counts names
-rowData$metab_id <- tolower(rowData$metab_id)
-
-# make sex field
-colData$sexf <- colData$gender==2
 
 
 #///
@@ -52,6 +47,29 @@ colData$sexf <- colData$gender==2
 # Process data
 #///
 #///
+
+# make ids lowercase like counts names
+rowData$metab_id <- tolower(rowData$metab_id)
+
+# make sex field
+colData$sexf <- colData$gender==2
+
+# filter out never smokers (used as controls)
+subj_smoked = colData$sid[colData$smoking_status > 0] # 1060 subjects
+
+# filter for only gold 0
+subj_gold0  = colData$sid[colData$finalgold_visit == 0] # 467 subjects
+
+# subjects that meet both conditions
+subj_keep = intersect(subj_gold0,subj_smoked) # 448 
+
+colData = colData[colData$sid %in% subj_keep , ] 
+nrow(colData) # 447
+
+counts = counts[counts$sid %in% subj_keep , ]
+nrow(counts) # 447
+
+
 #### utils/DataPreProcessCodes.R that contains a function which can allow you to pre-process the data by log-transformation, 
 #### adjusting for necessary covariates, and standardization of the features. 
 #### For your analysis, you can adjust the metabolite measurements for 
@@ -82,18 +100,9 @@ length(subject_ids)
 adjusted_matrix = t(adjusted_matrix)
 
 
-# plot(density(adjusted_matrix[1,]),col = rgb(0,0,0,.1), ylim = c(0, 1), main = 'Transformed and Adjusted Metabolite Counts')
-# 
-# apply(adjusted_matrix[-1,], 1, function(x){
-#   lines(density(x),col = rgb(0,0,0,.1))
-# })
-
-
-
 #///
 #///
-# Format summarized experiment object
-# Format summarized experiment object
+# Check dims match between matrices
 #///
 #///
 

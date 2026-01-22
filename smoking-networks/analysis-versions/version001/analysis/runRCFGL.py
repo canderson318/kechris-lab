@@ -40,7 +40,9 @@ os.chdir(root / 'analysis-versions/version001')
 # load data to list
 def load_dat():
 
-    nms=  ['never', 'current', 'former']
+    # nms=  ['never', 'current', 'former']
+    nms=  ['current', 'former'] # exclude never smokers
+    
     all = []
     for nm in nms :
         all.append( np.loadtxt(f"processed-data/002/separate-scaled/{nm}.csv",dtype=float, delimiter = ',') )
