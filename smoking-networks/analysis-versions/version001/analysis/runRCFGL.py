@@ -17,7 +17,8 @@ warnings.filterwarnings(
 )
 
 # assign highest level directory
-root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
+# root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
+root = Path('/projects/canderson2@xsede.org/kechris-lab/smoking-networks/')
 
 # load bespoke definitions
 RCFGL_path = root / 'RCFGL'
@@ -51,17 +52,16 @@ def load_dat():
 
     return all
 
-# Make data shared among workers
-GLOBAL_DATA  = None
+# # Make data shared among workers
+# GLOBAL_DATA  = None
 
-def init_worker():
-    global GLOBAL_DATA
-    GLOBAL_DATA = load_dat()
-    print(f"[PID {os.getpid()}] Data loaded with shapes:",
-          [x.shape for x in GLOBAL_DATA])
+# def init_worker():
+#     global GLOBAL_DATA
+#     GLOBAL_DATA = load_dat()
+#     print(f"[PID {os.getpid()}] Data loaded with shapes:",
+#           [x.shape for x in GLOBAL_DATA])
 
 
-# init_worker()
 
 #\\\
 #\\\

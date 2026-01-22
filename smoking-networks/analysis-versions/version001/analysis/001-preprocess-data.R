@@ -1,6 +1,6 @@
 
 pacman::p_load(
-  dplyr, readr, stringr, tidyr, ggplot2, magrittr, zeallot, tibble, janitor,
+  dplyr, readr, stringr, tidyr, ggplot2, magrittr, zeallot, tibble, janitor, openxlsx,
                install = F)
 
 rm(list= ls()); gc()
@@ -20,19 +20,25 @@ setwd(wd_path)
 system("cat ../../info/info.txt")
 
 # This file contains the metadata of each metabolite
-rowData <- read_csv('../../raw-data/COPDGene_P2_MetaboliteInformation_20211021.csv') %>% 
-  clean_names()
+suppressMessages(
+  rowData <- read_csv('../../raw-data/COPDGene_P2_MetaboliteInformation_20211021.csv') %>% 
+    clean_names()
+)
 
 # This file contains the relevant clinical data from Phase 2 for these subjects. 
-colData <- read_csv('../../raw-data/COPDGene_P1P2P3_SM_NS_Long_Oct23_ShareWithChristian.csv') %>% 
-  clean_names()
+suppressMessages(
+  colData <- read_csv('../../raw-data/COPDGene_P1P2P3_SM_NS_Long_Oct23_ShareWithChristian.csv') %>% 
+    clean_names()
+)
 
 # This file contains metabolite measurements from 995 metabolites for 1125 subjects from Phase 2 of COPDGene
-counts <- read_csv('../../raw-data/COPDGene_P2_LT20miss_knnImp_NoOut_metabs_20211021_ShareWithChristian.csv') %>% 
-  clean_names()
+suppressMessages(
+  counts <- read_csv('../../raw-data/COPDGene_P2_LT20miss_knnImp_NoOut_metabs_20211021_ShareWithChristian.csv') %>% 
+    clean_names()
+)
 
 # data dictionary
-dat_dict <- openxlsx::read.xlsx("../../raw-data/DataDictionary.xlsx")
+dat_dict <- read.xlsx("../../raw-data/DataDictionary.xlsx")
 
 # make ids lowercase like counts names
 rowData$metab_id <- tolower(rowData$metab_id)

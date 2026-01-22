@@ -26,12 +26,8 @@ dir="RCFGL"
 
 git clone https://github.com/sealx017/RCFGL.git
 
+echo -e "\n*** *** *** ***\\nRemember to change the ElasticNet normalize argument to manually normalizing with sklearn.preprocessing.Normalize\nlook here: \`analysis/utils/fixed_get_screening_2.py\`\n*** *** *** ***\n"
+
 ### Install gnu parallel if needed and on mac ###
 [ "$(uname -s)" == "Darwin" ] && brew install parallel
 
-### Install R dependencies ###
-Rscript << 'EOF'
-install.packages("BiocManager")
-BiocManager::install('SummarizedExperiment')
-install.packages("qs")
-EOF

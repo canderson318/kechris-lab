@@ -9,8 +9,10 @@ import matplotlib.pyplot as plt
 from scipy.interpolate import griddata
 import seaborn as sns
 
+
 # assign highest level directory
-root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
+# root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
+root=Path.home() / '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/'
 os.chdir(root / 'analysis-versions/version001')
 
 #\\\
@@ -19,9 +21,10 @@ os.chdir(root / 'analysis-versions/version001')
 #\\\
 #\\\
 
-files = os.listdir('results/002/aics')
+aic_dir = 'results/002/22-01-2026-aics'
+files = os.listdir(aic_dir)
 
-res = pd.DataFrame([np.loadtxt(f'results/002/aics/{f}', delimiter = ',') for f in files],  columns = ['l1', 'l2', 'AIC'])
+res = pd.DataFrame([np.loadtxt(Path(aic_dir) / f, delimiter = ',') for f in files],  columns = ['l1', 'l2', 'AIC'])
 
 
 #\\\
@@ -52,10 +55,11 @@ plt.imshow(
     extent=(l1_grid.min(), l1_grid.max(), l2_grid.min(), l2_grid.max()),
     aspect='auto'
 )
-plt.colorbar(label='AIC')
+plt.colorbar(label='√AIC')
 
 plt.xlabel('l1')
 plt.ylabel('l2')
 plt.title('Interpolated AIC surface')
 plt.show()
 
+plt.savefig('results/002/AIC-grid.png')

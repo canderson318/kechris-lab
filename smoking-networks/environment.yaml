@@ -17,6 +17,7 @@ dependencies:
   - r-ggnewscale
   - r-magrittr
   - r-zeallot
+  - r-openxlsx
 
 
   - python=3.9
