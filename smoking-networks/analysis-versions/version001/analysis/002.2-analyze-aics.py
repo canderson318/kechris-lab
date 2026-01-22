@@ -103,7 +103,8 @@ AIC_grid = griddata(
     points=(df.l1, df.l2),
     values=np.sqrt(df.AIC),
     xi=(L1, L2),
-    method='linear'
+    # method='linear'
+    method='cubic'
 )
 
 fig = go.Figure()
