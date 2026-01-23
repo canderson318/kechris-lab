@@ -36,6 +36,12 @@ res_pairs  = set(map(tuple, res[['l1', 'l2']].to_numpy()))
 
 print(f"{len(grid_pairs & res_pairs)} out of {grid.shape[0]} grid value pairs completed")
 
+# plot lambda grid
+plt.figure(figsize = (5,5))
+plt.scatter(grid.l1, grid.l2)
+plt.title("Lambda Values Grid Search")
+plt.savefig('results/002/lambda-grid-scatter.png')
+
 
 #\\\
 #\\\
@@ -56,8 +62,9 @@ def plot_grid(df, col_label, title, filename):
         points=(df.l1, df.l2),
         values=np.sqrt(df.AIC),
         xi=(L1, L2),
-        # method='linear'   # 'nearest' 'linear' 'cubic'
+        # method='linear' 
         method='cubic'
+        # method='nearest'
     )
 
 
@@ -79,20 +86,12 @@ def plot_grid(df, col_label, title, filename):
 
 plot_grid(res,'√AIC','Interpolated AIC surface','results/002/AIC-grid.png')
 
-# look at area where AIC small
-plot_grid(res.iloc[(res.l1.values<.08) & (res.l2.values <.1) , :], '√AIC','Interpolated AIC surface (zoomed)','results/002/zoomed-AIC-grid.png')
-
-# look at area where AIC small again
-plot_grid(res.iloc[(res.l1.values<.06) & (res.l2.values <.04) , :], 
-    '√AIC','Interpolated AIC surface (zoomed)','results/002/2x-zoomed-AIC-grid.png')
-
-
 # interactive plot
 df, col_label, title, filename = (
-    res.iloc[(res.l1.values<.06) & (res.l2.values <.04) , :], 
+    res, 
     '√AIC',
     'Interpolated AIC surface (zoomed)',
-    'results/002/interactive-2x-zoomed-AIC-grid.html'
+    'results/002/interactive-AIC-grid.html'
 )
 
 # interpolation grid
