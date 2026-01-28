@@ -31,3 +31,10 @@ echo -e "\n*** *** *** ***\\nRemember to change the ElasticNet normalize argumen
 ### Install gnu parallel if needed and on mac ###
 [ "$(uname -s)" == "Darwin" ] && brew install parallel
 
+
+### Load raw-data to versionxxx directory
+
+#+ plot_ly
+#+ googlechrome
+#+ kaleido
+#+
