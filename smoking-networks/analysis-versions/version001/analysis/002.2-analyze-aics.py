@@ -49,25 +49,19 @@ plt.savefig('results/002/lambda-grid-scatter.png')
 #\\\
 #\\\
 
-def plot_grid(df, col_label, title, filename):
-
+def plot_grid(df, col_label, title, filename, transf):
     plt.scatter(df.l1, df.l2, c = df.AIC)
-
     l1_grid = np.linspace(df.l1.min(), df.l1.max(), 500)
     l2_grid = np.linspace(df.l2.min(), df.l2.max(), 500)
-
     L1, L2 = np.meshgrid(l1_grid, l2_grid)
-
     AIC_grid = griddata(
         points=(df.l1, df.l2),
-        values=np.sqrt(df.AIC),
+        values=transf(df.AIC),
         xi=(L1, L2),
         # method='linear' 
         method='cubic'
         # method='nearest'
     )
-
-
     plt.figure(figsize=(10, 9))
     plt.imshow(
         AIC_grid,
@@ -76,20 +70,27 @@ def plot_grid(df, col_label, title, filename):
         aspect='auto'
     )
     plt.colorbar(label=col_label)
-
     plt.xlabel('l1')
     plt.ylabel('l2')
     plt.title(title)
     plt.show()
-
     plt.savefig(filename)
 
-plot_grid(res,'√AIC','Interpolated AIC surface','results/002/AIC-grid.png')
+def transform(x):
+    # return np.sqrt(x)
+    # return np.log(x)
+    return x
 
+plot_grid(res,'AIC','Interpolated AIC surface','results/002/AIC-grid.png', transform)
+
+
+#\\\
 # interactive plot
+#\\\
 df, col_label, title, filename = (
     res, 
-    '√AIC',
+    'AIC',
+    # '√AIC',
     'Interpolated AIC surface (zoomed)',
     'results/002/interactive-AIC-grid.html'
 )
@@ -101,7 +102,7 @@ L1, L2 = np.meshgrid(l1_grid, l2_grid)
 
 AIC_grid = griddata(
     points=(df.l1, df.l2),
-    values=np.sqrt(df.AIC),
+    values=transform(df.AIC),
     xi=(L1, L2),
     # method='linear'
     method='cubic'

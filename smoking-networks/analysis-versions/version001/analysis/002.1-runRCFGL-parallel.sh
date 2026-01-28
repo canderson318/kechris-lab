@@ -3,6 +3,7 @@
 # number of processes to spawn
 JOBS=1   # default
 
+# pass slurm ntasks to this script if specified there
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --jobs|-j)

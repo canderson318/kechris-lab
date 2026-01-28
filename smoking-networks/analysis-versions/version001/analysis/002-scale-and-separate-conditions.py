@@ -63,12 +63,12 @@ def process(df: pd.DataFrame)->pd.DataFrame:
     
     return df_out
 
-nev_scaled = process(nev_smok_logcounts)
-form_scaled = process(form_smok_logcounts)
-curr_scaled = process(curr_smok_logcounts)
+nev_smok_logcounts = process(nev_smok_logcounts)
+form_smok_logcounts = process(form_smok_logcounts)
+curr_smok_logcounts = process(curr_smok_logcounts)
 
 # Combined list of the scaled dataframes
-all = [np.array(nev_scaled), np.array(form_scaled), np.array(curr_scaled)]
+all = [np.array(nev_smok_logcounts), np.array(form_smok_logcounts), np.array(curr_smok_logcounts)]
 
 nms = ['never', 'former','current']
 all_dict = {nms[index]: value for index, value in enumerate(all)}
