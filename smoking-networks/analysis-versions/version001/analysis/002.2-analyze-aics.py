@@ -87,12 +87,12 @@ plot_grid(res,'AIC','Interpolated AIC surface','results/002/AIC-grid.png', trans
 #\\\
 # interactive plot
 #\\\
-df, col_label, title, filename = (
+df, col_label, title, filename, transf = (
     res, 
     'AIC',
-    # '√AIC',
     'Interpolated AIC surface (zoomed)',
-    'results/002/interactive-AIC-grid.html'
+    'results/002/interactive-AIC-grid.html',
+    transform
 )
 
 # interpolation grid
@@ -102,7 +102,7 @@ L1, L2 = np.meshgrid(l1_grid, l2_grid)
 
 AIC_grid = griddata(
     points=(df.l1, df.l2),
-    values=transform(df.AIC),
+    values=transf(df.AIC),
     xi=(L1, L2),
     # method='linear'
     method='cubic'
