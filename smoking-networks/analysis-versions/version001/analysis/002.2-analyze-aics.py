@@ -130,7 +130,7 @@ fig.add_trace(
         mode="markers",
         marker=dict(
             size=6,
-            color=np.sqrt(df.AIC),
+            color=transf(df.AIC),
             colorscale="Viridis",
             showscale=False,
             line=dict(width=0.5, color="black")
