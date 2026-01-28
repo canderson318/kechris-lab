@@ -90,7 +90,7 @@ plot_grid(res,'AIC','Interpolated AIC surface','results/002/AIC-grid.png', trans
 df, col_label, title, filename, transf = (
     res, 
     'AIC',
-    'Interpolated AIC surface (zoomed)',
+    'Interpolated AIC surface',
     'results/002/interactive-AIC-grid.html',
     transform
 )
@@ -136,7 +136,7 @@ fig.add_trace(
             line=dict(width=0.5, color="black")
         ),
         name="Observed points",
-        hovertemplate="l1=%{x}<br>l2=%{y}<br>√AIC=%{marker.color:.3f}<extra></extra>"
+        hovertemplate="l1=%{x}<br>l2=%{y}<br>AIC=%{marker.color:.3f}<extra></extra>"
     )
 )
 
