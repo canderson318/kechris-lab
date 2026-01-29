@@ -74,9 +74,9 @@ nms = ['never', 'former','current']
 all_dict = {nms[index]: value for index, value in enumerate(all)}
 
 # make directory for scaled counts matrices separated by smoking status
-out_path = Path('processed-data/002/separate-scaled')
-out_path.mkdir(exist_ok=True)
+out_dir = Path('processed-data/002/separate')
+out_dir.mkdir(exist_ok=True)
 
 for nm in nms:
-    print(f"Saving `{nm}.csv` to {out_path}")
-    np.savetxt(Path('processed-data/002/separate-scaled') / f'{nm}.csv',  all_dict[nm], delimiter = ',')
+    print(f"Saving `{nm}.csv` to {out_dir}")
+    np.savetxt(out_dir / f'{nm}.csv',  all_dict[nm], delimiter = ',')

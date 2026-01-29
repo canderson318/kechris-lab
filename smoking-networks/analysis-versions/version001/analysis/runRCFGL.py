@@ -45,7 +45,7 @@ def load_dat():
     
     all = []
     for nm in nms :
-        all.append( np.loadtxt(f"processed-data/002/separate-scaled/{nm}.csv",dtype=float, delimiter = ',') )
+        all.append( np.loadtxt(f"processed-data/002/separate/{nm}.csv",dtype=float, delimiter = ',') )
     
     # # |||For Testing|||
     # np.random.seed(102); inds = np.random.choice(all[0].shape[1], 100, replace = False)
