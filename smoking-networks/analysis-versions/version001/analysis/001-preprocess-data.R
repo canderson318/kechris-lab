@@ -48,16 +48,20 @@ dat_dict <- read.xlsx("../../raw-data/DataDictionary.xlsx")
 #///
 #///
 
+#\\
+# prefilter data
+#\\
+
 # make ids lowercase like counts names
 rowData$metab_id <- tolower(rowData$metab_id)
 
 # make sex field
 colData$sexf <- colData$gender==2
 
-# filter out never smokers (used as controls)
+# where smokers
 subj_smoked = colData$sid[colData$smoking_status > 0] # 1060 subjects
 
-# filter for only gold 0
+# where gold 0
 subj_gold0  = colData$sid[colData$finalgold_visit == 0] # 467 subjects
 
 # subjects that meet both conditions
@@ -156,6 +160,6 @@ dim(adjusted_matrix) # 758 1117
 # each table separately 
 # write.csv(counts_filtered, 'processed-data/001/raw_counts.csv')
 write.csv(adjusted_matrix, 'processed-data/001/adjusted_logcounts.csv')
-write.csv(rowData, 'processed-data/001/rowData.csv')
-write.csv(colData, 'processed-data/001/colData.csv')
+write.csv(rowData,         'processed-data/001/rowData.csv')
+write.csv(colData,         'processed-data/001/colData.csv')
 

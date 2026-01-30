@@ -18,7 +18,7 @@ Rscript --vanilla $F # > /dev/null
 echo -e "\n•••$F Done•••\n"
 
 # >>> Separate Data by smoking status
-F=analysis/002-scale-and-separate-conditions.py
+F=analysis/002-separate-conditions.py
 echo -e "\n•••Running $F•••\n"
 python $F 
 echo -e "\n•••$F Done•••\n"
