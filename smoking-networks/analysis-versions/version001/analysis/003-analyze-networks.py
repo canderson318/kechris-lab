@@ -43,40 +43,29 @@ prec_array.shape
 # \\\\
 
 # functions for network analysis
-from myDstream_functions import *
+from analysis.utils.myDstream_functions import *
 
+import sklearn
+iris = sklearn.datasets.load_iris(as_frame = True)['data']
 
+cov = pd.DataFrame(np.cov(iris.T), index = iris.columns, columns = iris.columns)
+prec = pd.DataFrame(np.linalg.inv(cov), index = iris.columns, columns = iris.columns)
 
+partial_cor = np.abs(CovtoCor(prec))
+adj, nms = MakeAdjMatrix(prec, .8, "all", 'default')
+adj; nms
+
+G = nx.from_numpy_array(adj, create_using=nx.MultiGraph)
+
+fig = plt.figure(figsize=(10,10))
+nx.draw_networkx(G)
+plt.savefig('results/003/example-net.png')
 
 # \\\\
 # \\\\
 # Visualize Network
 # \\\\
 # \\\\
-
-# G = nx.DiGraph()
-# G.add_nodes_from(rowDat.metab_id)
-prec_current, prec_former = [x for x in prec.values()]
-
-def process(mat, thresh):
-    """Format data for graphing with thresholded edges"""
-    mat_f = mat.copy()
-    mat_f[mat_f < thresh] = 0
-    for i,j in (mat.shape[0], mat.shape[1]):
-        mat[i,j] = 0
-    df = pd.DataFrame(
-        mat_f,
-        index=rowDat.metab_id,
-        columns=rowDat.metab_id,
-    )
-    # remove zero-weight edges
-    df = df.loc[:, (df != 0).any(axis=0)] # keep where any value in column is nonzero
-    df = df.loc[(df != 0).any(axis=1), :] # keep where any value in row is nonzero
-    return df
-
-thr = .65
-prec_former_f = process(prec_former, thresh  = thr)
-prec_current_f = process(prec_current, thresh  = thr)
 
 G_former  = nx.from_pandas_adjacency(prec_former_f, create_using=nx.DiGraph)
 G_current = nx.from_pandas_adjacency(prec_current_f, create_using=nx.DiGraph)
