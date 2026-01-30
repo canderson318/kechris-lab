@@ -1,5 +1,10 @@
 #!/usr/bin/bash
 
+start=$(date +%s)
+
+# dir=/Users/canderson/Documents/school/local-kechris-lab/kechris-lab/
+dir=/projects/canderson2@xsede.org/kechris-lab/
+
 # number of processes to spawn
 JOBS=1   # default
 
@@ -17,10 +22,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-echo "Using JOBS=$JOBS"
-
-root=/Users/canderson/Documents/school/local-kechris-lab/kechris-lab/
-# dir=/projects/canderson2@xsede.org/kechris-lab/
+echo "JOBS=$JOBS"
 
 cd "$dir/smoking-networks/analysis-versions/version001/" || exit 1
 
@@ -33,7 +35,7 @@ cd "$dir/smoking-networks/analysis-versions/version001/" || exit 1
 
 
 ### Make search grid ###
-NUM_VALS=20
+NUM_VALS=30
 NUM_VALS=$NUM_VALS python << 'EOF'
 import numpy as np
 import os
@@ -61,3 +63,10 @@ parallel \
   :::: results/002/lambda-grid.txt
 
 echo Done
+
+
+end=$(date +%s)
+elapsed=$((end - start))
+
+printf "Runtime: %02d:%02d:%02d (hh:mm:ss)\n" \
+  $((elapsed/3600)) $(((elapsed%3600)/60)) $((elapsed%60))

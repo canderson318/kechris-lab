@@ -14,28 +14,27 @@ conda activate smoknet-env
 # >>> Preprocess Data
 F=analysis/001-preprocess-data.R
 echo -e "\n•••Running $F•••\n"
-Rscript --vanilla $F # > /dev/null
+Rscript --vanilla $F || exit 1
 echo -e "\n•••$F Done•••\n"
 
 # >>> Separate Data by smoking status
 F=analysis/002-separate-conditions.py
 echo -e "\n•••Running $F•••\n"
-python $F 
+python $F || exit 1
 echo -e "\n•••$F Done•••\n"
 
 # >>> Run RCFGL lambda grid search
-# F=analysis/002.1.1-slurm.sh
-# echo Running $F
-# sbatch $F
-# echo -e "\n•••$F Done•••\n"
+F=analysis/002.1.1-slurm.sh
+echo Running $F
+echo -e "(Run \`squeeze\` to watch slurm job)"
+sbatch $F || exit 1
+echo -e "\n•••$F Done•••\n"
 
 # # >>> Run lambda grid aic analysis
 # F=analysis/002.2-analyze-aics.py
 # echo Running $F
-# bash $F
+# bash $F || exit 1
 # echo -e "\n•••$F Done•••\n"
 
 
 echo -e "\n\\\\\\\\\\\\\n••• Pipeline Complete •••\n\\\\\\\\\\\\\n"
-
-echo -e "Run \`squeeze\` to watch slurm job"

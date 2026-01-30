@@ -15,7 +15,11 @@ import kaleido
 root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
 # root=Path.home() / '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/'
 
-os.chdir(root / 'analysis-versions/version001')
+try:
+    os.chdir(root / 'analysis-versions/version001')
+except OSError as e:
+    print(f"Failed to set working directory: {e}", file=sys.stderr)
+    sys.exit(1)
 
 #\\\
 #\\\

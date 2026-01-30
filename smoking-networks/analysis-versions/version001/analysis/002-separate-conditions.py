@@ -10,10 +10,14 @@ import re
 from numpy.typing import NDArray
 from typing import Any
 
-root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
-# root = Path('/projects/canderson2@xsede.org/kechris-lab/smoking-networks/')
+# root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
+root = Path('/projects/canderson2@xsede.org/kechris-lab/smoking-networks/')
 
-os.chdir(root / 'analysis-versions/version001')
+try:
+    os.chdir(root / 'analysis-versions/version001')
+except OSError as e:
+    print(f"Failed to set working directory: {e}", file=sys.stderr)
+    sys.exit(1)
 
 # make results/processed-data dirs
 for p in ["results/002", 'processed-data/002'] :
@@ -68,9 +72,11 @@ def process(df: pd.DataFrame)->pd.DataFrame:
 # curr_smok_logcounts = process(curr_smok_logcounts)
 
 # Combined list of the scaled dataframes
-all = [np.array(nev_smok_logcounts), np.array(form_smok_logcounts), np.array(curr_smok_logcounts)]
+# all = [np.array(nev_smok_logcounts), np.array(form_smok_logcounts), np.array(curr_smok_logcounts)]
+all = [np.array(form_smok_logcounts), np.array(curr_smok_logcounts)]
 
-nms = ['former','current']
+
+nms = ['former','current'] # not includig 'never'
 all_dict = {nms[index]: value for index, value in enumerate(all)}
 
 # make directory for scaled counts matrices separated by smoking status

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --partition=amilan
-#SBATCH --ntasks=20
+#SBATCH --ntasks=24
 #SBATCH --time=10:00:00
 #SBATCH --nodes=1
 #SBATCH --qos=normal

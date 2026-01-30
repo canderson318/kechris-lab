@@ -20,7 +20,11 @@ sys.path.insert(0, 'Python_functions')
 from RCFGL import RFGL, RCFGL
 from Dstream_functions import*
 
-os.chdir(root / 'analysis-versions/version001')
+try:
+    os.chdir(root / 'analysis-versions/version001')
+except OSError as e:
+    print(f"Failed to set working directory: {e}", file=sys.stderr)
+    sys.exit(1)
 
 # set results directory
 Path("results/003").mkdir(exist_ok=True)
@@ -47,7 +51,23 @@ prec = dict()
 for nm, file in zip(prec_names, prec_files):
     prec[nm] = np.loadtxt(prec_dir/file, delimiter = ",")
 
+[x for x in prec.values()][0].shape
 [x for x in adj.values()][0].shape
+
+
+
+# \\\\
+# \\\\
+# Process Network
+# \\\\
+# \\\\
+
+# functions for network analysis
+from Dstream_functions import *
+
+
+Adjacency_all = MakeAdjMatrix_all(RCFGL_output, truncation_value = 0.05, top_N = 75, names = 'default')
+
 
 # \\\\
 # \\\\
@@ -71,13 +91,16 @@ def process(mat, thresh):
         columns=rowDat.metab_id,
     )
     # remove zero-weight edges
-    df = df.loc[:, (df != 0).any(axis=0)]
-    df = df.loc[(df != 0).any(axis=1), :]
+    df = df.loc[:, (df != 0).any(axis=0)] # keep where any value in column is nonzero
+    df = df.loc[(df != 0).any(axis=1), :] # keep where any value in row is nonzero
     return df
 
 thr = .65
-G_former = nx.from_pandas_adjacency(process(prec_former, thresh  = thr), create_using=nx.DiGraph, )
-G_current = nx.from_pandas_adjacency(process(prec_current, thresh  = thr), create_using=nx.DiGraph)
+prec_former_f = process(prec_former, thresh  = thr)
+prec_current_f = process(prec_current, thresh  = thr)
+
+G_former  = nx.from_pandas_adjacency(prec_former_f, create_using=nx.DiGraph)
+G_current = nx.from_pandas_adjacency(prec_current_f, create_using=nx.DiGraph)
 
 fig = plt.figure(figsize=(30, 30))
 pos = nx.spring_layout(G_former, seed=120349)

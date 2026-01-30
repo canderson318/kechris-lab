@@ -6,10 +6,17 @@ pacman::p_load(
 rm(list= ls()); gc()
 
 
-wd_path = '/Users/canderson/Documents/school/local-kechris-lab/rotation-project/analysis-versions/version001'
-# wd_path = '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/analysis-versions/version001'
+# wd_path = '/Users/canderson/Documents/school/local-kechris-lab/rotation-project/analysis-versions/version001'
+wd_path = '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/analysis-versions/version001'
 
-setwd(wd_path)
+tryCatch(
+  setwd(wd_path),
+  error = function(e) {
+    message("Failed to set working directory: ", e$message)
+    quit(status = 1)
+  }
+)
+
 
 #///
 #///
@@ -17,7 +24,7 @@ setwd(wd_path)
 #///
 #///
 
-system("cat ../../info/info.txt")
+# system("cat ../../info/info.txt")
 
 # This file contains the metadata of each metabolite
 suppressMessages(
@@ -116,7 +123,7 @@ rowData = rowData[rowData$metab_id %in% rownames(adjusted_matrix)  ,  ]
 # filter colData for sids in counts
 colData = colData[ colData$sid %in% colnames(adjusted_matrix) , ]
 
-if(!(nrow(rowData) == nrow(adjusted_matrix)) & !(nrow(colData) == ncol(adjusted_matrix)) )                            stop("Dims Don't Match!!!")
+if(!(nrow(rowData) == nrow(adjusted_matrix)) & !(nrow(colData) == ncol(adjusted_matrix)) )   stop("Dims Don't Match!!!")
 if(!all(identical(colData$sid, colnames(adjusted_matrix)), identical(rowData$metab_id, rownames(adjusted_matrix))) )  stop("Dimnames do not match row/col data!!!")
 
 # include raw counts too
