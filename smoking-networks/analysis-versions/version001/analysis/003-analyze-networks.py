@@ -1,3 +1,4 @@
+
 import os
 import re
 import sys
@@ -7,18 +8,9 @@ import seaborn as sns
 from pathlib import Path
 import matplotlib.pyplot as plt
 import networkx as nx
+import pickle as pkl
 
 root= Path('/projects/canderson2@xsede.org/kechris-lab/smoking-networks')
-RCFGL_path = root / 'RCFGL'
-os.chdir(RCFGL_path)
-try: 
-    sys.path.remove("Python_functions")
-except:
-    print('Python_functions not in $PATH')
-sys.path.insert(0, 'Python_functions')
-
-from RCFGL import RFGL, RCFGL
-from Dstream_functions import*
 
 try:
     os.chdir(root / 'analysis-versions/version001')
@@ -37,24 +29,12 @@ Path("results/003").mkdir(exist_ok=True)
 
 rowDat = pd.read_csv('processed-data/001/rowData.csv', index_col = 0)
 
-adj_dir = Path('results/002/RCFGL-output/adjacency/')
-adj_files = os.listdir(adj_dir)
-adj_names = [str(Path(x).stem) for x in adj_files]
-adj = dict()
-for nm, file in zip(adj_names, adj_files):
-    adj[nm] = np.loadtxt(adj_dir/file, delimiter = ",")
+rcfgl = pkl.load(open('results/002/RCFGL-output/RCFGL.pkl','rb'))
 
-prec_dir = Path('results/002/RCFGL-output/precision/')
-prec_files = os.listdir(prec_dir)
-prec_names = [str(Path(x).stem) for x in prec_files]
-prec = dict()
-for nm, file in zip(prec_names, prec_files):
-    prec[nm] = np.loadtxt(prec_dir/file, delimiter = ",")
+len(rcfgl)
+prec_array, _, _ = rcfgl
 
-[x for x in prec.values()][0].shape
-[x for x in adj.values()][0].shape
-
-
+prec_array.shape
 
 # \\\\
 # \\\\
@@ -63,10 +43,9 @@ for nm, file in zip(prec_names, prec_files):
 # \\\\
 
 # functions for network analysis
-from Dstream_functions import *
+from myDstream_functions import *
 
 
-Adjacency_all = MakeAdjMatrix_all(RCFGL_output, truncation_value = 0.05, top_N = 75, names = 'default')
 
 
 # \\\\

@@ -6,3 +6,4 @@ RCFGL/
 AIC*.txt
 *lambda-grid.txt
 logs
+**.pkl
