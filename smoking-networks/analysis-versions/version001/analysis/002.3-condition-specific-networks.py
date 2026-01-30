@@ -10,6 +10,7 @@ import re
 import seaborn as sns
 import matplotlib.pyplot as plt
 from pathlib import Path
+import pickle as pkl
 
 # root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
 root= Path('/projects/canderson2@xsede.org/kechris-lab/smoking-networks')
@@ -19,11 +20,10 @@ os.chdir(RCFGL_path)
 try: 
     sys.path.remove("Python_functions")
 except:
-    print('Python_functions not in $PATH')
+    print('Python_functions not in $PATH, adding')
+    sys.path.insert(0, 'Python_functions')  
 
-sys.path.insert(0, 'Python_functions')
 from RCFGL import RFGL, RCFGL
-from Dstream_functions import*
 
 try:
     os.chdir(root / 'analysis-versions/version001')
@@ -78,16 +78,11 @@ precision_matrices_array.shape
 #\\\
 #\\\
 
-print("Saving RCFGL Outputs...")
-
-# make paths
-precision_path = Path('results/002/RCFGL-output/precision')
-precision_path.mkdir(parents=True, exist_ok=True)
-
-
-# save arrays
-for i in range(0,len(Adjacency_all)):
-    np.savetxt(precision_path / f'{nms[i]}.csv', precision_matrices_array[:, :, i], delimiter = ',')
-
+print("Saving RCFGL...")
+out_path = Path('results/002/RCFGL-output/')
+out_path.mkdir(parents=True, exist_ok=True)
+out_file = 'RCFGL.pkl'
+with open(out_path/out_file, 'wb')  as f:
+    pkl.dump(obj=RCFGL_output, file =  f)
 print("RCFGL Saved")
 
