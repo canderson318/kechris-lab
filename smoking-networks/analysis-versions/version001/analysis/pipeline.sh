@@ -24,10 +24,10 @@ python $F
 echo -e "\n•••$F Done•••\n"
 
 # >>> Run RCFGL lambda grid search
-F=analysis/002.1.1-slurm.sh
-echo Running $F
-sbatch $F
-echo -e "\n•••$F Done•••\n"
+# F=analysis/002.1.1-slurm.sh
+# echo Running $F
+# sbatch $F
+# echo -e "\n•••$F Done•••\n"
 
 # # >>> Run lambda grid aic analysis
 # F=analysis/002.2-analyze-aics.py

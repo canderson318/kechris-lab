@@ -17,8 +17,8 @@ warnings.filterwarnings(
 )
 
 # assign highest level directory
-# root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
-root = Path('/projects/canderson2@xsede.org/kechris-lab/smoking-networks/')
+root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
+# root = Path('/projects/canderson2@xsede.org/kechris-lab/smoking-networks/')
 
 # load bespoke definitions
 RCFGL_path = root / 'RCFGL'

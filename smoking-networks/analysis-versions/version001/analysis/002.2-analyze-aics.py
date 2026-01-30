@@ -12,8 +12,9 @@ import plotly.graph_objects as go
 import kaleido
 
 # assign highest level directory
-# root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
-root=Path.home() / '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/'
+root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
+# root=Path.home() / '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/'
+
 os.chdir(root / 'analysis-versions/version001')
 
 #\\\

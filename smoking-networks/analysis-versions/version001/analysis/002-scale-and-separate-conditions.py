@@ -10,8 +10,9 @@ import re
 from numpy.typing import NDArray
 from typing import Any
 
-# root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
-root = Path('/projects/canderson2@xsede.org/kechris-lab/smoking-networks/')
+root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
+# root = Path('/projects/canderson2@xsede.org/kechris-lab/smoking-networks/')
+
 os.chdir(root / 'analysis-versions/version001')
 
 # make results/processed-data dirs

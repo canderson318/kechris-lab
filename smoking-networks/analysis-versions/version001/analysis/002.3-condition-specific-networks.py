@@ -11,8 +11,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-# root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
-root= Path('/projects/canderson2@xsede.org/kechris-lab/smoking-networks')
+root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
+# root= Path('/projects/canderson2@xsede.org/kechris-lab/smoking-networks')
 RCFGL_path = root / 'RCFGL'
 os.chdir(RCFGL_path)
 try: 

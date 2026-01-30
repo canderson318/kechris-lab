@@ -19,8 +19,8 @@ done
 
 echo "Using JOBS=$JOBS"
 
-# root=/Users/canderson/Documents/school/local-kechris-lab/kechris-lab/
-dir=/projects/canderson2@xsede.org/kechris-lab/
+root=/Users/canderson/Documents/school/local-kechris-lab/kechris-lab/
+# dir=/projects/canderson2@xsede.org/kechris-lab/
 
 cd "$dir/smoking-networks/analysis-versions/version001/" || exit 1
 
