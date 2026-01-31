@@ -91,16 +91,26 @@ def plot_grid(df, col_label, title, filename, transf):
     plt.savefig(filename)
 
 def transform(x):
-    # return np.sqrt(x)
-    # return np.log(x)
     return x
 
 plot_grid(res,'AIC','Interpolated AIC surface','results/002/AIC-grid.png', transform)
+
+def transform(x):
+    return np.sqrt(x)
+plot_grid(res,'√AIC','Interpolated AIC surface','results/002/sqrt-AIC-grid.png', transform)
+
+def transform(x):
+    return np.log(x)
+plot_grid(res,'logAIC','Interpolated AIC surface','results/002/log-AIC-grid.png', transform)
 
 
 #\\\
 # interactive plot
 #\\\
+
+def transform(x):
+    return x
+
 df, col_label, title, filename, transf = (
     res, 
     'AIC',

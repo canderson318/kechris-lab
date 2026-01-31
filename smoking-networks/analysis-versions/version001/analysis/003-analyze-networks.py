@@ -108,16 +108,15 @@ plot_graph(only_former, 'results/003/only-former-graph.pdf', 'Only in former')
 plot_graph(only_current, 'results/003/only-current-graph.pdf', 'Only in current')
 
 
-print("\n•••••Never Smokers•••••")
-NetworkPlotter(Adjacency_all, which = 1) 
 
 print("\n•••••Former Smokers•••••")
-NetworkPlotter(Adjacency_all, which = 2) 
+NetworkPlotter(Adjacency_all, which = 1) 
 
 print("\n•••••Current Smokers•••••")
-NetworkPlotter(Adjacency_all, which = 3) 
+NetworkPlotter(Adjacency_all, which = 2) 
 
 PairNetworkPlotter(Adjacency_all, pair = [1, 2])
+
 # \\\\
 # \\\\
 # xxx``
