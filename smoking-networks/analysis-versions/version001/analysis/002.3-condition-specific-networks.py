@@ -11,9 +11,17 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from pathlib import Path
 import pickle as pkl
+import platform
 
-# root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
-root= Path('/projects/canderson2@xsede.org/kechris-lab/smoking-networks')
+# assign highest level directory
+op_sys = platform.system()
+
+if op_sys == 'Linux':
+    root=Path.home() / '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/'
+elif op_sys == "Darwin": 
+    root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
+else:
+    raise SystemError("System Not Identifiable")
 
 RCFGL_path = root / 'RCFGL'
 os.chdir(RCFGL_path)
@@ -38,7 +46,7 @@ except OSError as e:
 #\\\
 #\\\
 
-nms=  ['current', 'former']
+nms=  ['former', 'current']
 
 all = []
 for nm in nms :

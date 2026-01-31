@@ -5,9 +5,13 @@ pacman::p_load(
 
 rm(list= ls()); gc()
 
-
-# wd_path = '/Users/canderson/Documents/school/local-kechris-lab/rotation-project/analysis-versions/version001'
-wd_path = '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/analysis-versions/version001'
+if(Sys.info()[["sysname"]]=="Linux"){
+  wd_path = '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/analysis-versions/version001'
+}else if(Sys.info()[["sysname"]]=="Darwin"){
+  wd_path = '/Users/canderson/Documents/school/local-kechris-lab/rotation-project/analysis-versions/version001'
+}else{
+  stop("System Not Idenfified")
+}
 
 tryCatch(
   setwd(wd_path),

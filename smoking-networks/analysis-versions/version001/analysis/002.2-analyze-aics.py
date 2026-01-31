@@ -6,14 +6,23 @@ import sys
 import os
 from pathlib import Path
 import matplotlib.pyplot as plt
+import subprocess as sp
 from scipy.interpolate import griddata
 import seaborn as sns
 import plotly.graph_objects as go
 import kaleido
+import platform
 
 # assign highest level directory
-root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
-# root=Path.home() / '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/'
+op_sys = platform.system()
+
+if op_sys == 'Linux':
+    root=Path.home() / '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/'
+elif op_sys == "Darwin": 
+    root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
+else:
+    raise SystemError("System Not Identifiable")
+
 
 try:
     os.chdir(root / 'analysis-versions/version001')
@@ -27,7 +36,7 @@ except OSError as e:
 #\\\
 #\\\
 
-aic_dir = 'results/002/22-01-2026-aics'
+aic_dir = 'results/002/30-01-2026-aics'
 files = os.listdir(aic_dir)
 
 res = pd.DataFrame([np.loadtxt(Path(aic_dir) / f, delimiter = ',') for f in files],  columns = ['l1', 'l2', 'AIC'])

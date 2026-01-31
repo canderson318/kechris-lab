@@ -1,16 +1,53 @@
 #!/Users/canderson/miniconda3/envs/smoknet-env/bin/python
 
+
+
+#\\\ 
+# Try making conditional dependence graph
+#\\\
+
 import numpy as np
-from sklearn.preprocessing import Normalizer 
+import sklearn.datasets 
+import pandas as pd
 
-x = np.linspace(0, 20, num=100)
 
-print(x.shape)
+# functions for network analysis
+from analysis.utils.myDstream_functions import *
 
-x_n = Normalizer('l2').fit_transform(x.reshape(-1,1))
+iris = sklearn.datasets.load_iris(as_frame = True)['data']
 
-print(x_n.shape)
-print(x_n)
+cov = pd.DataFrame(np.cov(iris.T), index = iris.columns, columns = iris.columns)
+prec = pd.DataFrame(np.linalg.inv(cov), index = iris.columns, columns = iris.columns)
+
+# marginal cor
+cor = CovtoCor(cov)
+
+# partial correlations (correlations correcting for confouding relationships)
+partial_cor = np.array(np.abs(-CovtoCor(prec))); np.fill_diagonal(partial_cor, 1); partial_cor =  pd.DataFrame(partial_cor, index = iris.columns, columns = iris.columns)
+
+adj, nms = MakeAdjMatrix(prec, .5, "all", 'default')
+adj; nms
+
+G = nx.from_numpy_array(adj, create_using=nx.MultiGraph,)
+labels = dict(zip(G.nodes(),iris.columns.values[nms]))
+nx.set_node_attributes(G,labels ,name="label")
+
+
+fig = plt.figure(figsize=(8, 8))
+pos = nx.spring_layout(G, seed=120349)
+nx.draw(G, pos, labels = labels, font_size=8)
+plt.savefig('results/example-net.png')
+plt.close()
+
+
+
+# import numpy as np
+# from sklearn.preprocessing import Normalizer 
+# x = np.linspace(0, 20, num=100)
+# print(x.shape)
+# x_n = Normalizer('l2').fit_transform(x.reshape(-1,1))
+# print(x_n.shape)
+# print(x_n)
 
 
 # #//

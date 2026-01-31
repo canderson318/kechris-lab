@@ -9,9 +9,18 @@ import os
 import re
 from numpy.typing import NDArray
 from typing import Any
+import platform
 
-# root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
-root = Path('/projects/canderson2@xsede.org/kechris-lab/smoking-networks/')
+
+# assign highest level directory
+op_sys = platform.system()
+
+if op_sys == 'Linux':
+    root=Path.home() / '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/'
+elif op_sys == "Darwin": 
+    root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
+else:
+    raise SystemError("System Not Identifiable")
 
 try:
     os.chdir(root / 'analysis-versions/version001')

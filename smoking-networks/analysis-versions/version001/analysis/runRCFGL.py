@@ -7,6 +7,8 @@ import os
 from pathlib import Path
 import warnings
 from itertools import product
+import platform
+
 
 # suppress cppyy warning
 warnings.filterwarnings(
@@ -17,8 +19,14 @@ warnings.filterwarnings(
 )
 
 # assign highest level directory
-# root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
-root = Path('/projects/canderson2@xsede.org/kechris-lab/smoking-networks/')
+op_sys = platform.system()
+
+if op_sys == 'Linux':
+    root=Path.home() / '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/'
+elif op_sys == "Darwin": 
+    root=Path.home() / 'Documents/school/local-kechris-lab/kechris-lab/smoking-networks'
+else:
+    raise SystemError("System Not Identifiable")
 
 # load bespoke definitions
 RCFGL_path = root / 'RCFGL'

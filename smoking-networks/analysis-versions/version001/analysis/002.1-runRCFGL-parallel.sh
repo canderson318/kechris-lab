@@ -2,8 +2,17 @@
 
 start=$(date +%s)
 
-# dir=/Users/canderson/Documents/school/local-kechris-lab/kechris-lab/
-dir=/projects/canderson2@xsede.org/kechris-lab/
+# set working directory based on system
+if [[ $OSTYPE == linux* ]]; then
+  echo "OSTYPE Linux"
+  dir=/projects/canderson2@xsede.org/kechris-lab/
+elif [[ $OSTYPE == darwin* ]]; then
+  echo "OSTYPE Darwin"
+  dir=/Users/canderson/Documents/school/local-kechris-lab/kechris-lab/
+else 
+  echo "OS Not Identified"
+  exit 1
+fi
 
 # number of processes to spawn
 JOBS=1   # default
