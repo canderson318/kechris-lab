@@ -1,14 +1,14 @@
 
 pacman::p_load(
   dplyr, readr, stringr, tidyr, ggplot2, magrittr, zeallot, tibble, janitor, openxlsx,
-               install = F)
+  install = F)
 
 rm(list= ls()); gc()
 
 if(Sys.info()[["sysname"]]=="Linux"){
   wd_path = '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/analysis-versions/version001'
 }else if(Sys.info()[["sysname"]]=="Darwin"){
-  wd_path = '/Users/canderson/Documents/school/local-kechris-lab/rotation-project/analysis-versions/version001'
+  wd_path = '/Users/canderson/Documents/school/local-kechris-lab/kechris-lab/smoking-networks/analysis-versions/version001'
 }else{
   stop("System Not Idenfified")
 }
@@ -50,7 +50,6 @@ suppressMessages(
 
 # data dictionary
 dat_dict <- read.xlsx("../../raw-data/DataDictionary.xlsx")
-
 
 
 #///

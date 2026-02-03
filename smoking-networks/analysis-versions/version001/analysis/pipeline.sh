@@ -1,34 +1,51 @@
-#!/usr/bin/bash
+#!/bin/zsh
+##!/usr/bin/bash
+
 
 ### Go to Project Directory ###
-dir='/projects/canderson2@xsede.org/kechris-lab/smoking-networks/analysis-versions/version001/'
-cd $dir || exit 1
+# set working directory based on system
+if [[ $OSTYPE == linux* ]]; then
+  echo "OSTYPE Linux"
+  os=linux
+  dir=/projects/canderson2@xsede.org/kechris-lab/smoking-networks/analysis-versions/version001/
+elif [[ $OSTYPE == darwin* ]]; then
+  echo "OSTYPE Darwin"
+  os=darwin
+  dir=/Users/canderson/Documents/school/local-kechris-lab/kechris-lab/smoking-networks/analysis-versions/version001/
+else 
+  echo "OS Not Identified"
+  exit 1
+fi
 
-### Activate Conda ###
-# source "$HOME/miniconda3/etc/profile.d/conda.sh" # initialize\
-module purge
-module load anaconda
-conda activate smoknet-env
+cd $dir || exit 1
+pwd 
+
+
+# ### Activate Conda ###
+# source "$HOME/miniconda3/etc/profile.d/conda.sh" # initialize for local
+# # module purge # for alpine
+# # module load anaconda  # for alpine
+# conda activate smoknet-env
 
 ### Pipeline ###
 # >>> Preprocess Data
 F=analysis/001-preprocess-data.R
-echo -e "\n•••Running $F•••\n"
-Rscript --vanilla $F || exit 1
+[[ -f $F ]] && echo -e "\n•••Running $F•••\n" || {echo -e "\nError: $F Not Found\n"; exit 1;}
+conda run -n smoknet-env Rscript --vanilla $F
 echo -e "\n•••$F Done•••\n"
 
 # >>> Separate Data by smoking status
 F=analysis/002-separate-conditions.py
-echo -e "\n•••Running $F•••\n"
-python $F || exit 1
+[[ -f $F ]] && echo -e "\n•••Running $F•••\n" || {echo -e "\nError: $F Not Found\n"; exit 1;}
+conda run -n smoknet-env python $F 
 echo -e "\n•••$F Done•••\n"
 
-# >>> Run RCFGL lambda grid search
-F=analysis/002.1.1-slurm.sh
-echo Running $F
-echo -e "(Run \`squeeze\` to watch slurm job)"
-sbatch $F || exit 1
-echo -e "\n•••$F Done•••\n"
+# # >>> Run RCFGL lambda grid search
+# F=analysis/002.1.1-slurm.sh
+# echo Running $F
+# echo -e "(Run \`squeeze\` to watch slurm job)"
+# sbatch $F || exit 1
+# echo -e "\n•••$F Done•••\n"
 
 # # >>> Run lambda grid aic analysis
 # F=analysis/002.2-analyze-aics.py
@@ -36,5 +53,14 @@ echo -e "\n•••$F Done•••\n"
 # bash $F || exit 1
 # echo -e "\n•••$F Done•••\n"
 
+# >>> Run RCFGL 
+F=analysis/002.3-condition-specific-networks.py
+[[ -f $F ]] && echo -e "\n•••Running $F•••\n" || {echo -e "\nError: $F Not Found\n"; exit 1;}
+conda run -n smoknet-env python $F 
+echo -e "\n•••$F Done•••\n"
 
+
+
+
+# >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> 
 echo -e "\n\\\\\\\\\\\\\n••• Pipeline Complete •••\n\\\\\\\\\\\\\n"

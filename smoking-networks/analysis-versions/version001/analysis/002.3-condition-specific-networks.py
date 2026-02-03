@@ -31,7 +31,7 @@ except:
     print('Python_functions not in $PATH, adding')
     sys.path.insert(0, 'Python_functions')  
 
-from RCFGL import RFGL, RCFGL
+from RCFGL import  RCFGL
 
 try:
     os.chdir(root / 'analysis-versions/version001')
@@ -46,7 +46,7 @@ except OSError as e:
 #\\\
 #\\\
 
-nms=  ['former', 'current']
+nms=  ['former', 'current'] # order critical for downstream
 
 all = []
 for nm in nms :

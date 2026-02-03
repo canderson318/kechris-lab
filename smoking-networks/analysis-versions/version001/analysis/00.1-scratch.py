@@ -1,15 +1,7 @@
-#!/Users/canderson/miniconda3/envs/smoknet-env/bin/python
-
-
-
-#\\\ 
-# Try making conditional dependence graph
-#\\\
 
 import numpy as np
 import sklearn.datasets 
 import pandas as pd
-
 
 # functions for network analysis
 from analysis.utils.myDstream_functions import *
