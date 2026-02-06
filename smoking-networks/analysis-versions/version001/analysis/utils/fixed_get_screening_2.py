@@ -15,7 +15,6 @@ from scipy.stats import norm
 cppyy.include('C_functions/for_loop.h')
 from cppyy.gbl import screening_loop
 from sklearn.linear_model import ElasticNet
-from sklearn.preprocessing import Normalizer 
  
 
 def s_selection(expr1,expr2,ss=np.arange(0.1,2.1,0.1)):
@@ -67,12 +66,9 @@ def get_diff_W(expr1,expr2,s=2):
     x1_s = (x1-np.mean(x1,axis = 0)).T*(1/(np.std(x1, axis = 0)))[:, np.newaxis]
     y1_s = (y1-np.mean(y1,axis = 0))
 
-    # Normalize before running elastic net
-    x1_sn = Normalizer('l2').fit_transform(x1_s)
-    
     # regr = ElasticNet(alpha = lam1,l1_ratio = 1,fit_intercept = False,random_state=0, normalize = False) # normalize is no longer argument in Elastic net
     regr = ElasticNet(alpha = lam1,l1_ratio = 1,fit_intercept = False,random_state=0) 
-    regr.fit(x1_sn.T,y1_s)
+    regr.fit(x1_s.T,y1_s)
     b1[:,i] = np.multiply(1/(np.std(x1, axis = 0)),regr.coef_)
     
 
@@ -82,12 +78,9 @@ def get_diff_W(expr1,expr2,s=2):
     x2_s = (x2-np.mean(x2,axis = 0)).T*(1/(np.std(x2, axis = 0)))[:, np.newaxis]
     y2_s = (y2-np.mean(y2,axis = 0))
     
-    # Normalize (normalize samples independently to unit l2 norm) before running elastic net
-    x2_sn = Normalizer('l2').fit_transform(x2_s)
-    
     # regr = ElasticNet(alpha = lam2,l1_ratio = 1,fit_intercept = False,random_state=0, normalize = False) # normalize is no longer argument in Elastic net
     regr = ElasticNet(alpha = lam2,l1_ratio = 1,fit_intercept = False,random_state=0)
-    regr.fit(x2_sn.T,y2_s)
+    regr.fit(x2_s.T,y2_s)
     b2[:,i] = np.multiply(1/(np.std(x2, axis = 0)),regr.coef_)
 
     c1[:,i] = y1-np.mean(y1)-np.dot((x1-np.mean(x1,axis = 0)),b1[:,i])    
