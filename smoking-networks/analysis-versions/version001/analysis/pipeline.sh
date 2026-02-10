@@ -29,38 +29,45 @@ pwd
 
 ### Pipeline ###
 # >>> Preprocess Data
-F=analysis/001-preprocess-data.R
-[[ -f $F ]] && echo -e "\n•••Running $F•••\n" || {echo -e "\nError: $F Not Found\n"; exit 1;}
+F=analysis/001_preprocess_data.R
+[[ -f $F ]] && echo -e "\n•••Running $F•••\n" || {echo -e "\nError: $F not found\n"; exit 1;}
 conda run -n smoknet-env Rscript --vanilla $F
 echo -e "\n•••$F Done•••\n"
 
 # >>> Separate Data by smoking status
-F=analysis/002-separate-conditions.py
-[[ -f $F ]] && echo -e "\n•••Running $F•••\n" || {echo -e "\nError: $F Not Found\n"; exit 1;}
-conda run -n smoknet-env python $F 
+F=analysis/002_separate_conditions.py
+[[ -f $F ]] && echo -e "\n•••Running $F•••\n" || {echo -e "\nError: $F not found\n"; exit 1;}
+/Users/canderson/miniconda3/envs/smoknet-env/bin/python $F 
 echo -e "\n•••$F Done•••\n"
 
 # # >>> Run RCFGL lambda grid search
-# F=analysis/002.1.1-slurm.sh
+# F=analysis/002.1.1_slurm.sh
 # echo Running $F
 # echo -e "(Run \`squeeze\` to watch slurm job)"
 # sbatch $F || exit 1
 # echo -e "\n•••$F Done•••\n"
 
 # # >>> Run lambda grid aic analysis
-# F=analysis/002.2-analyze-aics.py
+# F=analysis/002.2_analyze_aics.py
 # echo Running $F
 # bash $F || exit 1
 # echo -e "\n•••$F Done•••\n"
 
 # >>> Run RCFGL 
-F=analysis/002.3-condition-specific-networks.py
-[[ -f $F ]] && echo -e "\n•••Running $F•••\n" || {echo -e "\nError: $F Not Found\n"; exit 1;}
-conda run -n smoknet-env python $F 
+F=analysis/003_condition_specific_networks.py
+[[ -f $F ]] && echo -e "\n•••Running $F•••\n" || {echo -e "\nError: $F not found\n"; exit 1;}
+/Users/canderson/miniconda3/envs/smoknet-env/bin/python $F 
 echo -e "\n•••$F Done•••\n"
 
-
-
+# >>>> Analyze networks 1:
+F=analysis.003_1_analyze_networks
+echo -e "\n•••Running $F as module •••\n" 
+/Users/canderson/miniconda3/envs/smoknet-env/bin/python -m "$F"
+###### >>>> Process images
+F=analysis/utils/process_images.sh
+[[ -f $F ]] && echo -e "\n•••Running $F•••\n" || {echo -e "\nError: $F not found\n"; exit 1;}
+zsh $F 
+echo -e "\n•••$F Done•••\n"
 
 # >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> 
 echo -e "\n\\\\\\\\\\\\\n••• Pipeline Complete •••\n\\\\\\\\\\\\\n"
