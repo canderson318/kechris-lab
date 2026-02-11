@@ -52,7 +52,7 @@ except OSError as e:
 #\\\
 #\\\
 
-nms=  ['former', 'current'] # order critical for downstream
+nms=  [ 'current', 'former'] # order critical for downstream
 
 all = []
 for nm in nms :

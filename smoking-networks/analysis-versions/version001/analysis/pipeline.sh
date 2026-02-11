@@ -60,7 +60,7 @@ F=analysis/003_condition_specific_networks.py
 echo -e "\n•••$F Done•••\n"
 
 # >>>> Analyze networks 1:
-F=analysis.003_1_analyze_networks
+F=analysis.004_explore_networks
 echo -e "\n•••Running $F as module •••\n" 
 /Users/canderson/miniconda3/envs/smoknet-env/bin/python -m "$F"
 ###### >>>> Process images
