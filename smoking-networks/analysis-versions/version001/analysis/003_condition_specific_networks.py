@@ -45,6 +45,10 @@ except OSError as e:
     print(f"Failed to set working directory: {e}", file=sys.stderr)
     sys.exit(1)
 
+# Results directory 
+out_path = Path('results/003/RCFGL-output/')
+out_path.mkdir(parents=True, exist_ok=True)
+
 
 #\\\
 #\\\
@@ -59,7 +63,7 @@ for nm in nms :
     all.append( np.loadtxt(f"processed-data/002/separate/{nm}.csv", delimiter = ',', ) )
 
 if len(all)<2:
-    raise ValueError("Precision matrices not loaded")
+    raise ValueError("Count matrices not loaded")
 
 [x.shape for x in all]
 
@@ -71,7 +75,7 @@ if len(all)<2:
 l1 = 0.316
 l2 = 0.158
 
-print(f"Running RCFGL with lambda1 = {l1} and lambda2 = {l2}")
+print(f"Running RCFGL with lambda1 = {l1} and lambda2 = {l2}\nUsing order {nms[0]} & {nms[1]}")
 RCFGL_output = RCFGL(A = all, 
                    ADMMmaxiter = 100, 
                    admmtol = 0.001,
@@ -84,7 +88,7 @@ precision_matrices_array, AIC, time = RCFGL_output
 print(f"AIC = {round(AIC[0],3)}, runtime = {time}") 
 precision_matrices_array.shape
 
-
+precision_matrices_array[:,:,1]
 
 #\\\
 #\\\
@@ -93,8 +97,6 @@ precision_matrices_array.shape
 #\\\
 
 print("Saving RCFGL...")
-out_path = Path('results/002/RCFGL-output/')
-out_path.mkdir(parents=True, exist_ok=True)
 out_file = 'RCFGL.pkl'
 with open(out_path/out_file, 'wb')  as f:
     pkl.dump(obj=RCFGL_output, file =  f)

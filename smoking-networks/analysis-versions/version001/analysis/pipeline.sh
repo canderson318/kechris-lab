@@ -63,6 +63,14 @@ echo -e "\n•••$F Done•••\n"
 F=analysis.004_explore_networks
 echo -e "\n•••Running $F as module •••\n" 
 /Users/canderson/miniconda3/envs/smoknet-env/bin/python -m "$F"
+
+
+# >>>> Analyze networks 2:
+F=analysis.005_analyze_networks
+echo -e "\n•••Running $F as module •••\n" 
+/Users/canderson/miniconda3/envs/smoknet-env/bin/python -m "$F"
+
+
 ###### >>>> Process images
 F=analysis/utils/process_images.sh
 [[ -f $F ]] && echo -e "\n•••Running $F•••\n" || {echo -e "\nError: $F not found\n"; exit 1;}

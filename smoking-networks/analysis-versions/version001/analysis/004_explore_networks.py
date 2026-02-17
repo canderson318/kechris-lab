@@ -2,7 +2,6 @@
 ### EXPLORE NETWORKS ###
 ### EXPLORE NETWORKS ###
 ### EXPLORE NETWORKS ###
-
 import os
 import sys
 import numpy as np
@@ -15,12 +14,14 @@ import pickle as pkl
 import platform
 import seaborn as sns
 import warnings
-
+##
+# filter warning
 warnings.filterwarnings('ignore', message='.*chained assignment.*')
-
+##
 # assign highest level directory
 op_sys = platform.system()
 
+# set root depending on system
 if op_sys == 'Linux':
     root=Path.home() / '/projects/canderson2@xsede.org/kechris-lab/smoking-networks/'
 elif op_sys == "Darwin": 
@@ -28,12 +29,13 @@ elif op_sys == "Darwin":
 else:
     raise SystemError("System Not Identifiable")
 
+# try changint to root
 try:
     os.chdir(root / 'analysis-versions/version001')
 except OSError as e:
     print(f"Failed to set working directory: {e}", file=sys.stderr)
     sys.exit(1)
-
+##
 # set results directory
 Path("results/004").mkdir(exist_ok=True)
 
@@ -44,12 +46,16 @@ Path("results/004").mkdir(exist_ok=True)
 # \\\\
 
 rowDat = pd.read_csv('processed-data/001/rowData.csv', index_col = 0)
-
-rcfgl = pkl.load(open('results/002/RCFGL-output/RCFGL.pkl','rb'))
+rcfgl = pkl.load(open('results/003/RCFGL-output/RCFGL.pkl','rb'))
 
 len(rcfgl)
 prec_array, _, _ = rcfgl
 prec_array.shape
+
+# make precisions dataframes
+nms = ['curr', "form"]
+prec_dict = {nms[i]: pd.DataFrame(prec_array[:,:,i], index = rowDat.metab_id, columns = rowDat.metab_id, dtype = float) for i in range(prec_array.shape[2])}
+
 
 # \\\\
 # \\\\
@@ -61,23 +67,34 @@ prec_array.shape
 ## make adjacency
 #\\
 
-from analysis.utils.myDstream_functions import Adjacency, pseudoPartialCorr, MakeAdjMatrix, CovtoCor
+from analysis.utils.myDstream_functions import Adjacency, MakeAdjMatrix, CovtoCor
 
-truncation_value = .035
-top_N  = 'all'
+def adjGraphs(prec_list, truncation_value, top_N):
+    adjacencies = [
+        Adjacency(theta=prec_list[i], truncation_value=truncation_value, top_N=top_N)
+        for i in range(len(prec_list))
+    ]
+    graphs = [
+        nx.from_pandas_adjacency(df=adjacencies[i], create_using=nx.MultiGraph) 
+        for i in range(len(prec_list))
+    ]
+    if not np.array_equal(np.array(graphs[0].nodes()), adjacencies[0].index.values):
+        raise ValueError("Graph nodes do not equal adjacency index/columns")
+    return graphs[0], adjacencies[0],   graphs[1], adjacencies[1]
 
-adj_form = Adjacency(theta = prec_array[:,:,1], truncation_value=truncation_value, top_N = top_N)
-adj_form=adj_form.astype(int)
+# make graphs for all edges > 0
+theta = list(prec_dict.values())[0]
+truncation_value = tau = 0.04
+top_N = "all"
 
-# # check my function is correct
-# adj_formx, _ = MakeAdjMatrix(theta = prec_array[:,:,0], truncation_value=truncation_value, top_N = top_N, names = 'none')
-# np.array_equal( adj_form.to_numpy(), adj_formx)
+G_curr, adj_curr,  G_form, adj_form = adjGraphs(list(prec_dict.values()), tau, top_N)
 
-adj_curr = Adjacency(prec_array[:,:,0],truncation_value=truncation_value, top_N = top_N)
-adj_curr=adj_curr.astype(int)
-
-G_form = nx.from_pandas_adjacency(df=adj_form, create_using=nx.MultiGraph) # Undirected Graphs
-G_curr = nx.from_pandas_adjacency(df=adj_curr, create_using=nx.MultiGraph)
+# check my function is correct
+adj_formx, _ = MakeAdjMatrix(theta = prec_dict['form'], truncation_value=tau, top_N = top_N, names = 'none')
+adj_formx.shape
+adj_form.shape
+if not np.array_equal( adj_form.to_numpy(), adj_formx) :
+    raise ValueError("My adjacency function returns a value inequivalent to original function.")
 
 # \\\\
 # \\\\
@@ -85,36 +102,84 @@ G_curr = nx.from_pandas_adjacency(df=adj_curr, create_using=nx.MultiGraph)
 # \\\\
 # \\\\
 
+
+# \\
+# look at how different tau changes num edges and their strength
+# \\
+
+taus = np.arange(0.001, 0.05, step = 0.005)
+result = {'curr':[], 'form':[]}  # Start with empty lists
+for tau in taus:
+    G_curr, adj_curr, G_form, adj_form = adjGraphs(list(prec_dict.values()), tau, top_N)
+    n_edge_curr = (adj_curr > 0).sum().sum()
+    n_edge_form = (adj_form > 0).sum().sum()
+    
+    # Append values to dictionary lists
+    result['curr'].append(n_edge_curr)
+    result['form'].append(n_edge_form)
+
+result = pd.DataFrame(result)
+result['tau'] = taus
+result = result.melt(id_vars="tau")
+
+# sns.lineplot(result, x = 'tau', y = 'value', hue = 'variable')
+# plt.show()
+
+
 #\\
 # look at edge weight distributions
 #\\
 
-partial_form = abs(pseudoPartialCorr(prec_array[:,:,1]))
-partial_curr= abs(pseudoPartialCorr(prec_array[:,:,0]))
+# pseudo partial correlations
+partial_curr= CovtoCor(prec_dict['curr'])
+partial_form = CovtoCor(prec_dict['form'])
 
-# transform to less skewed for plotting
-form, curr = (partial_form.ravel(), partial_curr.ravel())
+form, curr = (partial_form.values.flatten() ,  partial_curr.values.flatten())
 
 fig, ax = plt.subplots(figsize=(8, 4))
 sns.kdeplot(form, ax=ax, color="steelblue", label="form",alpha = .5,clip = (None, 1) )
 sns.kdeplot(curr, ax=ax, color="orange", label="curr", alpha = .5, clip = (None, 1) )
 ax.legend()
-plt.title("Distributions of partial-correlation")
+plt.title(f"Distributions of partial-correlation (tau = {tau})")
 plt.savefig('results/004/partial-corr-distr.pdf')
+plt.close()
 
-form, curr = [np.log(x[x>0]) for x in [partial_form.ravel(), partial_curr.ravel()]]
+# transform to less skewed for plotting
+log_form, log_curr = [np.log(abs(x)) for x in [form,curr]]
+
 fig, ax = plt.subplots(figsize=(8, 4))
-sns.kdeplot(form, ax=ax, color="steelblue", label="form",alpha = .9,clip = (None, 0) )
-sns.kdeplot(curr, ax=ax, color="orange", label="curr", alpha = .9, clip = (None, 0) )
+sns.kdeplot(log_form, ax=ax, color="steelblue", label="form",alpha = .9,clip = (None, 0) )
+sns.kdeplot(log_curr, ax=ax, color="orange", label="curr", alpha = .9, clip = (None, 0) )
 ax.legend()
-plt.title("Distributions of log(partial-correlation>0)")
+plt.title(f"Distributions of log(abs(partial-correlation)>0) (tau = {tau})")
 plt.savefig('results/004/log-partial-corr-distr.pdf')
+plt.close()
 
+
+df = pd.DataFrame({"wgt_form": form,  "wgt_curr": curr})
+fig, ax = plt.subplots(figsize = (8,8))
+sns.scatterplot(data =df, x = "wgt_curr", y = "wgt_form")
+plt.xlabel("Current Smoker Weights")
+plt.ylabel("Former Smoker Weights")
+ax.set_title("Former versus Current Smoker Edge Weights (Pseudo Partial Correlation)")
+plt.savefig("results/004/former-current-weight-scatter.png")
+plt.close()
+
+log_df = df.apply(np.abs).apply(np.log).dropna()
+
+fig, ax = plt.subplots(figsize = (8,8))
+sns.scatterplot(data =log_df, x = "wgt_curr", y = "wgt_form")
+plt.xlabel("Current Smoker Weights")
+plt.ylabel("Former Smoker Weights")
+ax.set_title("Former versus Current Smoker Edge Weights (log[abs(partial-correlation) > 0])")
+plt.savefig("results/004/log-former-current-weight-scatter.png")
+plt.close()
 
 #\\
 # make table of 
 #:: connectivity, edge density, sparsity, topoligy, count nodes, count edges,...
 #\\
+
 
 def network_metrix(G):
     adj = nx.adjacency_matrix(G).toarray().squeeze()
@@ -137,19 +202,16 @@ def network_metrix(G):
 
 metric_form, metric_curr = (network_metrix(G_form), network_metrix(G_curr))
 df = pd.DataFrame({'': metric_form.keys(), 'Former': metric_form.values(),'Current': metric_curr.values()})
+df.index = df.iloc[:,0]
 
-# save to pdf
-plt.rcParams['font.family'] = 'serif'
-plt.rcParams['font.serif'] = ['Times New Roman', 'DejaVu Serif']
+# add sum edges >/< 0 
+new_row = pd.DataFrame({df.columns[0]: ["Sum Negative Edges"], 'Former': [(prec_dict['form'] < 0).sum().sum()], 'Current': [(prec_dict['curr'] < 0).sum().sum()] }, index=["Sum Negative Edges"])
+df = pd.concat([df, new_row])
+new_row = pd.DataFrame({df.columns[0]: ["Sum Positive Edges"], 'Former': [(prec_dict['form'] > 0).sum().sum()], 'Current': [(prec_dict['curr'] > 0).sum().sum()] }, index=["Sum Positive Edges"])
+df = pd.concat([df, new_row])
 
-fig, ax = plt.subplots(figsize=(10, 5))  # Adjust size as needed
-ax.axis('tight')
-ax.axis('off')
-table = ax.table(cellText=df.values, colLabels=df.columns, 
-                 loc='center', cellLoc='right')
-table.auto_set_font_size(False)
-table.set_fontsize(12)
-plt.savefig('results/004/network-metrics.pdf', bbox_inches='tight', pad_inches=0.1)
+# save to csv
+df.to_csv(f'results/004/tau{tau}-network-metrics.csv', index = False)
 
 # L = nx.normalized_laplacian_matrix(G_form)
 # e = np.linalg.eigvals(L.toarray()).ravel()
@@ -163,10 +225,7 @@ plt.savefig('results/004/network-metrics.pdf', bbox_inches='tight', pad_inches=0
 deg_form = [x for x in dict(G_form.degree()).values()]
 deg_curr = [x for x in dict(G_curr.degree()).values()]
 
-df = pd.DataFrame({
-    "degree": np.concatenate([deg_form, deg_curr]),
-    "group": (["form"] * len(deg_form)) + (["curr"] * len(deg_curr)),
-})
+df = pd.DataFrame({"degree": np.concatenate([deg_form, deg_curr]),"group": (["form"] * len(deg_form)) + (["curr"] * len(deg_curr)),})
 
 fig, ax = plt.subplots(figsize=(8, 5))
 sns.histplot(data=df,x="degree",hue="group",fill=True,alpha=0.5,common_norm=False,multiple="dodge",  ax=ax,kde=True, )
@@ -185,88 +244,13 @@ def short_paths(G):
 short_paths_form = [x for x in short_paths(G_form)]
 short_paths_curr = [x for x in short_paths(G_curr)]
 
-df = pd.DataFrame({
-    "length": np.concatenate([short_paths_form, short_paths_curr]), 
-    'group': (["form"] * len(short_paths_form)) + (["curr"] * len(short_paths_curr))
-})
+df = pd.DataFrame({"length": np.concatenate([short_paths_form, short_paths_curr]), 'group': (["form"] * len(short_paths_form)) + (["curr"] * len(short_paths_curr))})
 
 fig, ax = plt.subplots(figsize=(8, 5))
 sns.histplot(data=df,x="length",hue="group",fill=True,alpha=0.5,common_norm=False,multiple="dodge",  ax=ax, kde=True,kde_kws={"bw_adjust":2})
+# sns.kdeplot(data=df,x="length",hue="group",fill=True,alpha=0.5,common_norm=False,  ax=ax)
 ax.set_title("Shortest Path Lengths")
 ax.xaxis.set_major_locator(plt.MaxNLocator(integer=True))
 plt.savefig("results/004/shortest-path-densities.pdf")
-
-
-# \\\\
-# \\\\
-# List hubs
-# \\\\
-# \\\\
-def save_top_hubs(G, out_dir):
-    out_dir = Path(out_dir)
-    out_dir.mkdir(exist_ok=True)
-    conn_comp = list(nx.connected_components(G))
-    lngs = [len(x) for x in conn_comp]
-    top_hub_inds = [list(conn_comp[i]) for i in np.sort(lngs)[-5:]]
-    
-    top_hub_chems = [list(rowDat.chemical_name[inds].values) for inds in top_hub_inds]
-    top_hub_super = [list(rowDat.super_pathway[inds].values) for inds in top_hub_inds]
-    top_hub_sub = [list(rowDat.sub_pathway[inds].values) for inds in top_hub_inds]
-    sep = '•'
-    with open(out_dir/'metabs.txt', 'w', encoding="UTF8") as f:
-        for super, sub, chem in zip(top_hub_super,top_hub_sub, top_hub_chems):
-            pathways = [f"{sp}{sep}{sb}{sep}{ch}" for sp, sb, ch in zip(super, sub, chem)]
-            print("||".join(pathways),'\n', file=f)
-
-save_top_hubs(G_form, 'results/004/form-hub-metabs/')
-save_top_hubs(G_curr, 'results/004/curr-hub-metabs/')
-
-
-# \\\\
-# \\\\
-# Look at node overlaps
-# \\\\
-# \\\\
-
-
-def jaccard(s1, s2):
-    """Intersection/union"""
-    return  len(np.intersect1d(s1,s2))/len(np.union1d(s1,s2))
-
-# metabolites kept after truncation/filtering
-inds_kept = [x.columns.values for x in (adj_form, adj_curr)]
-
-inds_intersect = np.intersect1d(*inds_kept)
-
-# all 
-inds_union = np.union1d(*inds_kept)
-form  = np.isin(inds_union, inds_kept[0])
-curr = np.isin(inds_union, inds_kept[1])
-    
-# fig, ax1 = plt.subplots()
-# # Left y-axis: Jaccards (0–1)
-# ax1.plot(x[:len(jaccards)], jaccards)
-# ax1.set_ylim(0, 1)
-# ax1.set_ylabel("Jaccard")
-# # Right y-axis: Shapes (0–800)
-# ax2 = ax1.twinx()
-# ax2.plot(x[:len(shapes)], shapes, c = 'orange')
-# ax2.set_ylim(0, 800)
-# ax2.set_ylabel("Shapes")
-# ax1.set_xlabel("x")
-# plt.show()
-# plt.close(fig)
-
-
-from upsetplot import UpSet, from_indicators
-upset_data = from_indicators(["form", "curr"],pd.DataFrame({"form": form,"curr": curr,},index=inds_union))
-up = UpSet(upset_data.copy(), subset_size="count", element_size=60)
-fig = plt.figure(figsize = (20,20))
-up.plot(fig = fig)
-plt.title(f"Jaccard= {jaccard(*inds_kept).__round__(2)}\n for tau = {truncation_value}\nand/or top N = {top_N}")
-plt.savefig('results/004/form-curr-metab-upset.pdf')
-plt.close(fig)
-
-
 
 

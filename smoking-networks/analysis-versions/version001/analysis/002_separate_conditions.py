@@ -69,26 +69,23 @@ nev_smok_logcounts = adjusted_logcounts.iloc[nev_smok_mask.values , :]
 curr_smok_logcounts = adjusted_logcounts.loc[curr_smok_mask.values , :]
 form_smok_logcounts = adjusted_logcounts.loc[form_smok_mask.values , :]
 
-def process(df: pd.DataFrame)->pd.DataFrame:
-    """Scaling the dataframes such that the columns have 0 mean"""
-    if df.shape[0]>0:
-        scaler = StandardScaler(with_std=False) 
-        df_out = scaler.fit_transform(df)
-        df_out = pd.DataFrame(df, index = df.index, columns = df.columns)
-    else:
-        df_out = df
-    return df_out
-
+# def process(df: pd.DataFrame)->pd.DataFrame:
+#     """Scaling the dataframes such that the columns have 0 mean"""
+#     if df.shape[0]>0:
+#         scaler = StandardScaler(with_std=False) 
+#         df_out = scaler.fit_transform(df)
+#         df_out = pd.DataFrame(df, index = df.index, columns = df.columns)
+#     else:
+#         df_out = df
+#     return df_out
 # nev_smok_logcounts = process(nev_smok_logcounts)
 # form_smok_logcounts = process(form_smok_logcounts)
 # curr_smok_logcounts = process(curr_smok_logcounts)
 
 # Combined list of the scaled dataframes
-# all = [np.array(nev_smok_logcounts), np.array(form_smok_logcounts), np.array(curr_smok_logcounts)]
-all = [np.array(form_smok_logcounts), np.array(curr_smok_logcounts)]
+all = [np.array(curr_smok_logcounts), np.array(form_smok_logcounts)]
 
-
-nms = ['former','current'] # not includig 'never'
+nms = ['current', 'former'] # not includig 'never'
 all_dict = {nms[index]: value for index, value in enumerate(all)}
 
 # make directory for scaled counts matrices separated by smoking status
