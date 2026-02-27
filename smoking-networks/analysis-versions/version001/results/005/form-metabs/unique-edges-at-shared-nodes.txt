@@ -1,0 +1,53 @@
+Lipid•Long Chain Saturated Fatty Acid•stearate (18:0)	Lipid•Long Chain Monounsaturated Fatty Acid•oleate/vaccenate (18:1)
+Lipid•Long Chain Monounsaturated Fatty Acid•palmitoleate (16:1n7)	Lipid•Long Chain Saturated Fatty Acid•myristate (14:0)
+Lipid•Long Chain Monounsaturated Fatty Acid•palmitoleate (16:1n7)	Lipid•Long Chain Monounsaturated Fatty Acid•10-nonadecenoate (19:1n9)
+Lipid•Long Chain Saturated Fatty Acid•myristate (14:0)	Lipid•Long Chain Saturated Fatty Acid•margarate (17:0)
+Lipid•Long Chain Saturated Fatty Acid•myristate (14:0)	Lipid•Medium Chain Fatty Acid•5-dodecenoate (12:1n7)
+Lipid•Long Chain Saturated Fatty Acid•myristate (14:0)	Lipid•Long Chain Monounsaturated Fatty Acid•10-heptadecenoate (17:1n7)
+Lipid•Long Chain Saturated Fatty Acid•myristate (14:0)	Lipid•Fatty Acid, Monohydroxy•16-hydroxypalmitate
+Lipid•Long Chain Saturated Fatty Acid•myristate (14:0)	Lipid•Fatty Acid, Monohydroxy•9-hydroxystearate
+Lipid•Long Chain Saturated Fatty Acid•pentadecanoate (15:0)	Lipid•Long Chain Monounsaturated Fatty Acid•10-nonadecenoate (19:1n9)
+Lipid•Long Chain Saturated Fatty Acid•pentadecanoate (15:0)	Lipid•Long Chain Monounsaturated Fatty Acid•10-heptadecenoate (17:1n7)
+Lipid•Phosphatidylcholine (PC)•1-palmitoyl-2-oleoyl-GPC (16:0/18:1)	Lipid•Phosphatidylcholine (PC)•1-stearoyl-2-oleoyl-GPC (18:0/18:1)
+Lipid•Phosphatidylcholine (PC)•1-palmitoyl-2-oleoyl-GPC (16:0/18:1)	Lipid•Phosphatidylinositol (PI)•1-palmitoyl-2-oleoyl-GPI (16:0/18:1)*
+Lipid•Long Chain Polyunsaturated Fatty Acid (n3 and n6)•eicosapentaenoate (EPA; 20:5n3)	Lipid•Long Chain Polyunsaturated Fatty Acid (n3 and n6)•docosahexaenoate (DHA; 22:6n3)
+Lipid•Long Chain Polyunsaturated Fatty Acid (n3 and n6)•eicosapentaenoate (EPA; 20:5n3)	Lipid•Long Chain Polyunsaturated Fatty Acid (n3 and n6)•stearidonate (18:4n3)
+Xenobiotics•Xanthine Metabolism•theophylline	Xenobiotics•Xanthine Metabolism•paraxanthine
+Lipid•Long Chain Polyunsaturated Fatty Acid (n3 and n6)•docosahexaenoate (DHA; 22:6n3)	Lipid•Long Chain Polyunsaturated Fatty Acid (n3 and n6)•stearidonate (18:4n3)
+Lipid•Long Chain Polyunsaturated Fatty Acid (n3 and n6)•docosahexaenoate (DHA; 22:6n3)	Lipid•Long Chain Polyunsaturated Fatty Acid (n3 and n6)•dihomo-linolenate (20:3n3 or n6)
+Lipid•Fatty Acid, Dicarboxylate•maleate	Xenobiotics•Food Component/Plant•N-(2-furoyl)glycine
+Lipid•Androgenic Steroids•dehydroepiandrosterone sulfate (DHEA-S)	Lipid•Androgenic Steroids•epiandrosterone sulfate
+Lipid•Androgenic Steroids•dehydroepiandrosterone sulfate (DHEA-S)	Lipid•Androgenic Steroids•androstenediol (3beta,17beta) disulfate (1)
+Lipid•Fatty Acid, Monohydroxy•3-hydroxydecanoate	Lipid•Fatty Acid Metabolism (Acyl Carnitine, Hydroxy)•3-hydroxyoleoylcarnitine
+Lipid•Androgenic Steroids•androsterone sulfate	Lipid•Androgenic Steroids•epiandrosterone sulfate
+Xenobiotics•Food Component/Plant•N-(2-furoyl)glycine	Xenobiotics•Benzoate Metabolism•3-methyl catechol sulfate (2)
+Xenobiotics•Food Component/Plant•N-(2-furoyl)glycine	Xenobiotics•Chemical•3-acetylphenol sulfate
+Xenobiotics•Food Component/Plant•N-(2-furoyl)glycine	Xenobiotics•Chemical•3-hydroxypyridine sulfate
+Lipid•Long Chain Polyunsaturated Fatty Acid (n3 and n6)•adrenate (22:4n6)	Lipid•Long Chain Polyunsaturated Fatty Acid (n3 and n6)•docosapentaenoate (n6 DPA; 22:5n6)
+Lipid•Medium Chain Fatty Acid•5-dodecenoate (12:1n7)	Lipid•Long Chain Monounsaturated Fatty Acid•10-heptadecenoate (17:1n7)
+Lipid•Lysophospholipid•1-palmitoyl-GPC (16:0)	Lipid•Lysoplasmalogen•1-(1-enyl-palmitoyl)-GPC (P-16:0)*
+Lipid•Lysophospholipid•1-stearoyl-GPC (18:0)	Lipid•Lysophospholipid•1-oleoyl-GPC (18:1)
+Lipid•Lysophospholipid•1-oleoyl-GPC (18:1)	Lipid•Lysoplasmalogen•1-(1-enyl-palmitoyl)-GPC (P-16:0)*
+Lipid•Androgenic Steroids•epiandrosterone sulfate	Lipid•Androgenic Steroids•5alpha-androstan-3beta,17beta-diol disulfate
+Xenobiotics•Benzoate Metabolism•catechol sulfate	Xenobiotics•Chemical•3-hydroxypyridine sulfate
+Lipid•Lysophospholipid•1-palmitoyl-GPI (16:0)	Lipid•Lysophospholipid•1-oleoyl-GPI (18:1)
+Lipid•Phosphatidylethanolamine (PE)•1-stearoyl-2-oleoyl-GPE (18:0/18:1)	Lipid•Phosphatidylethanolamine (PE)•1-stearoyl-2-linoleoyl-GPE (18:0/18:2)*
+Lipid•Phosphatidylethanolamine (PE)•1-palmitoyl-2-linoleoyl-GPE (16:0/18:2)	Lipid•Phosphatidylethanolamine (PE)•1-stearoyl-2-linoleoyl-GPE (18:0/18:2)*
+Lipid•Sphingomyelins•sphingomyelin (d18:1/18:1, d18:2/18:0)	Lipid•Sphingomyelins•sphingomyelin (d18:1/20:1, d18:2/20:0)*
+Lipid•Lysoplasmalogen•1-(1-enyl-palmitoyl)-GPC (P-16:0)*	Lipid•Lysoplasmalogen•1-(1-enyl-palmitoyl)-GPE (P-16:0)*
+Lipid•Lysoplasmalogen•1-(1-enyl-palmitoyl)-GPC (P-16:0)*	Lipid•Lysoplasmalogen•1-(1-enyl-stearoyl)-GPE (P-18:0)*
+Lipid•Fatty Acid Metabolism (Acyl Carnitine, Polyunsaturated)•linoleoylcarnitine (C18:2)*	Lipid•Fatty Acid Metabolism (Acyl Carnitine, Polyunsaturated)•dihomo-linolenoylcarnitine (C20:3n3 or 6)*
+Xenobiotics•Benzoate Metabolism•3-methyl catechol sulfate (2)	Xenobiotics•Chemical•3-hydroxypyridine sulfate
+Xenobiotics•Benzoate Metabolism•3-methyl catechol sulfate (2)	Energy•TCA Cycle•citraconate/glutaconate
+Xenobiotics•Benzoate Metabolism•guaiacol sulfate	Xenobiotics•Chemical•3-hydroxypyridine sulfate
+Xenobiotics•Benzoate Metabolism•guaiacol sulfate	Xenobiotics•Benzoate Metabolism•3-methoxycatechol sulfate (2)
+Xenobiotics•Chemical•3-acetylphenol sulfate	Xenobiotics•Chemical•3-hydroxypyridine sulfate
+Xenobiotics•Chemical•3-acetylphenol sulfate	Xenobiotics•Benzoate Metabolism•3-methoxycatechol sulfate (2)
+Lipid•Sphingomyelins•sphingomyelin (d18:1/14:0, d16:1/16:0)*	Lipid•Sphingomyelins•sphingomyelin (d17:1/16:0, d18:1/15:0, d16:1/17:0)*
+Lipid•Lysophospholipid•1-linolenoyl-GPC (18:3)*	Lipid•Phosphatidylcholine (PC)•1-palmitoleoyl-2-linolenoyl-GPC (16:1/18:3)*
+Lipid•Phosphatidylethanolamine (PE)•1-stearoyl-2-linoleoyl-GPE (18:0/18:2)*	Lipid•Phosphatidylethanolamine (PE)•1-stearoyl-2-arachidonoyl-GPE (18:0/20:4)
+Lipid•Phosphatidylethanolamine (PE)•1-palmitoyl-2-arachidonoyl-GPE (16:0/20:4)*	Lipid•Phosphatidylethanolamine (PE)•1-oleoyl-2-arachidonoyl-GPE (18:1/20:4)*
+Lipid•Plasmalogen•1-(1-enyl-palmitoyl)-2-linoleoyl-GPE (P-16:0/18:2)*	Lipid•Plasmalogen•1-(1-enyl-stearoyl)-2-linoleoyl-GPE (P-18:0/18:2)*
+Lipid•Diacylglycerol•palmitoyl-oleoyl-glycerol (16:0/18:1) [2]*	Lipid•Diacylglycerol•oleoyl-oleoyl-glycerol (18:1/18:1) [1]*
+Lipid•Diacylglycerol•palmitoyl-oleoyl-glycerol (16:0/18:1) [2]*	Lipid•Diacylglycerol•oleoyl-oleoyl-glycerol (18:1/18:1) [2]*
+Amino Acid•Tyrosine Metabolism•1-carboxyethyltyrosine	Amino Acid•Leucine, Isoleucine and Valine Metabolism•1-carboxyethylvaline

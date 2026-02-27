@@ -1,0 +1,16 @@
+Lipid•Primary Bile Acid Metabolism•glycocholate	Lipid•Secondary Bile Acid Metabolism•glycodeoxycholate
+Peptide•Gamma-glutamyl Amino Acid•gamma-glutamylleucine	Peptide•Gamma-glutamyl Amino Acid•gamma-glutamyl-alpha-lysine
+Lipid•Primary Bile Acid Metabolism•glycochenodeoxycholate	Lipid•Secondary Bile Acid Metabolism•glycodeoxycholate
+Lipid•Fatty Acid Metabolism (Acyl Carnitine, Medium Chain)•hexanoylcarnitine (C6)	Lipid•Fatty Acid Metabolism (Acyl Carnitine, Monounsaturated)•myristoleoylcarnitine (C14:1)*
+Lipid•Fatty Acid Metabolism (Acyl Carnitine, Medium Chain)•hexanoylcarnitine (C6)	Lipid•Fatty Acid Metabolism (Acyl Carnitine, Monounsaturated)•palmitoleoylcarnitine (C16:1)*
+Lipid•Long Chain Polyunsaturated Fatty Acid (n3 and n6)•docosapentaenoate (n3 DPA; 22:5n3)	Lipid•Long Chain Polyunsaturated Fatty Acid (n3 and n6)•adrenate (22:4n6)
+Lipid•Long Chain Polyunsaturated Fatty Acid (n3 and n6)•docosadienoate (22:2n6)	Lipid•Long Chain Polyunsaturated Fatty Acid (n3 and n6)•docosapentaenoate (n6 DPA; 22:5n6)
+Lipid•Lysophospholipid•1-palmitoyl-GPC (16:0)	Lipid•Lysophospholipid•1-palmitoyl-GPE (16:0)
+Xenobiotics•Xanthine Metabolism•1,7-dimethylurate	Xenobiotics•Xanthine Metabolism•5-acetylamino-6-amino-3-methyluracil
+Lipid•Lysophospholipid•1-palmitoleoyl-GPC (16:1)*	Lipid•Lysophospholipid•1-linolenoyl-GPC (18:3)*
+Lipid•Lysophospholipid•1-palmitoleoyl-GPC (16:1)*	Lipid•Phosphatidylcholine (PC)•1-palmitoleoyl-2-linolenoyl-GPC (16:1/18:3)*
+Lipid•Fatty Acid Metabolism (Acyl Carnitine, Monounsaturated)•cis-4-decenoylcarnitine (C10:1)	Lipid•Fatty Acid Metabolism (Acyl Carnitine, Monounsaturated)•myristoleoylcarnitine (C14:1)*
+Lipid•Sphingomyelins•sphingomyelin (d18:1/20:1, d18:2/20:0)*	Lipid•Sphingomyelins•sphingomyelin (d18:2/21:0, d16:2/23:0)*
+Lipid•Diacylglycerol•palmitoyl-oleoyl-glycerol (16:0/18:1) [2]*	Lipid•Diacylglycerol•palmitoyl-arachidonoyl-glycerol (16:0/20:4) [2]*
+Lipid•Diacylglycerol•oleoyl-oleoyl-glycerol (18:1/18:1) [2]*	Lipid•Diacylglycerol•diacylglycerol (16:1/18:2 [2], 16:0/18:3 [1])*
+Lipid•Sphingomyelins•sphingomyelin (d18:2/21:0, d16:2/23:0)*	Lipid•Sphingomyelins•sphingomyelin (d18:2/23:1)*
