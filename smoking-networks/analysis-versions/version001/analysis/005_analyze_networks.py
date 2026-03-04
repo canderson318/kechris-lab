@@ -87,8 +87,6 @@ adj_form.to_csv('results/005/form-adj.csv')
 
 
 
-
-
 # def getComponents(adj):
 #     def _dfs(adj, visited, s, res):
 #         row = adj.iloc[s]
@@ -112,8 +110,6 @@ adj_form.to_csv('results/005/form-adj.csv')
 # components = getComponents(adj_form)
 # components.__len__()
 
-if 1: 
-    print("True")
 # \\\\
 # \\\\
 # Save COmponent metab and pathways

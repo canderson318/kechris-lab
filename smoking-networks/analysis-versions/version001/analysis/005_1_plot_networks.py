@@ -104,7 +104,7 @@ comp_form = MetabLoader(path="results/005/form-metabs/comp-metabs.txt").load(at=
 # \\\\
 
 
-def plot_graph(adj, other_adj, out_dir, nm, title, size=(15,15), fntsz = 12):
+def plot_graph(adj, other_adj, out_dir, nm, title, size=(15,15), fntsz = 12, filter_to_common = True):
     # remove all unconnected nodes
     unconn = np.equal(adj.sum(1).values, 0)
     adj = adj.iloc[~unconn, ~unconn]
@@ -115,14 +115,14 @@ def plot_graph(adj, other_adj, out_dir, nm, title, size=(15,15), fntsz = 12):
     # alphabetize nodes
     common_nodes = pd.Index.sort_values(common_nodes)
     
-    # # check if nodes missing from other adj
-    # if len(common_nodes) < len(adj.index):
-    #     print(f"Note: {len(adj.index) - len(common_nodes)} nodes missing from other_adj")
+    # save unique nodes
+    unique_nodes = adj.index.difference(other_adj.index).to_numpy()
 
-    # Filter both to common nodes
-    adj = adj.loc[common_nodes, common_nodes]
-    other_adj = other_adj.loc[common_nodes, common_nodes]
-    
+    if filter_to_common:
+        # Filter both to common nodes
+        adj = adj.loc[common_nodes, common_nodes]
+        other_adj = other_adj.loc[common_nodes, common_nodes]
+
     # make graphs
     G = nx.from_pandas_adjacency(df=adj, create_using=nx.Graph)
     G_other = nx.from_pandas_adjacency(df=other_adj, create_using=nx.Graph)
@@ -132,10 +132,17 @@ def plot_graph(adj, other_adj, out_dir, nm, title, size=(15,15), fntsz = 12):
     # shared edges
     shared_edges_list = [(u, v) for u, v in G.edges() if (u, v) in G_other.edges() or (v, u) in G_other.edges()]
     
+    G_unique_nodes = [n for n in unique_nodes if n in G.nodes()]
+
     for lab in ["sub_pathway", "chemical_name"]:
         path = Path(out_dir)/f"{lab}-{nm}"
-        nms = rowData[rowData.metab_id.isin(G.nodes())][lab]
-        labels = dict(zip(G.nodes(), nms))
+        
+        unique_nms = rowData[rowData.metab_id.isin(G_unique_nodes)][lab]
+        unique_labels = dict(zip(G_unique_nodes, unique_nms))
+        
+        all_nms = rowData[rowData.metab_id.isin(G.nodes())][lab]
+        all_labels = dict(zip(G.nodes(), all_nms))
+
         
         fig, ax = plt.subplots(figsize=size)
         ax.axis("off")
@@ -143,7 +150,8 @@ def plot_graph(adj, other_adj, out_dir, nm, title, size=(15,15), fntsz = 12):
         
         # draw G_other as base graph
         nx.draw_networkx_nodes(G, pos, ax=ax,  node_color="#b979deff", edgecolors = "white",node_size=500 )
-        nx.draw_networkx_labels(G, pos, ax=ax, labels=labels, font_size=fntsz )
+        nx.draw_networkx_labels(G, pos, ax=ax, labels = all_labels, font_size=fntsz , font_color="black")
+        nx.draw_networkx_labels(G, pos, ax=ax, labels=unique_labels, font_size=fntsz , font_color="orange")
         
         # overlay edges unique to G_other in orange
         nx.draw_networkx_edges(G, pos, edgelist=shared_edges_list, edge_color="black", width=2, ax=ax)
@@ -219,6 +227,10 @@ plot_graph(adj = adj_node_distinct_form,other_adj = adj_node_distinct_curr,out_d
 #\\\
 # plot components
 #\\\
+def jaccard(s1, s2):
+    """Intersection/union"""
+    return  len(np.intersect1d(s1,s2))/len(np.union1d(s1,s2))
+
 
 # plot params
 label_sizes = [13]*4 + [13]*2 + [12]*4
@@ -228,36 +240,51 @@ plot_sizes = [(10,8)]*4 + [(12,10)]*2 + [(17,15)]*4
 out_dir = Path("results/005_1/component-graphs/current/")
 out_dir.mkdir(exist_ok=True, parents=True)
 for i  in range(len(comp_curr)):
-    a_comp_curr = comp_curr[i]
-    _adj_curr = adj_curr.loc[a_comp_curr, a_comp_curr]
-    plot_graph(adj = _adj_curr, other_adj = adj_form, out_dir = out_dir,nm =  f"{i}.pdf", title = f"Component {i+1}", 
-               fntsz = label_sizes[i], size = plot_sizes[i])
+    _adj_curr = adj_curr.loc[comp_curr[i], comp_curr[i]]
+    if i in [2,5]: # use adj at components for these because they are so similar
+    # if jaccard(comp_curr[i],comp_form[i]) > .8: # use adj at components for these because they are so similar
+        _other_adj = adj_form.loc[comp_form[i],comp_form[i]]
+        filter_to_common = False
+    else:
+        _other_adj = adj_form
+        filter_to_common = True
+    plot_graph(adj = _adj_curr, other_adj = _other_adj, out_dir = out_dir,nm =  f"{i}.pdf", 
+               title = f"Component {i+1}", 
+               fntsz = label_sizes[i], size = plot_sizes[i],
+               filter_to_common = filter_to_common)
 
 out_dir = Path("results/005_1/component-graphs/former/")
 out_dir.mkdir(exist_ok=True)
 for i in range(len(comp_form)):
-    a_comp_form = comp_form[i]
-    _adj_form = adj_form.loc[a_comp_form, a_comp_form]
-    plot_graph(adj = _adj_form,other_adj = adj_curr, out_dir= out_dir,nm =  f"{i}.pdf", title = f"Component {i+1}", 
-               fntsz = label_sizes[i],size=plot_sizes[i])
+    _adj_form = adj_form.loc[comp_form[i], comp_form[i]]
+    if i in [2,5]: # use adj at components for these because they are so similar
+    # if jaccard(comp_curr[i],comp_form[i]) > .9 : # use adj at components for these because they are so similar
+        _other_adj = adj_curr.loc[comp_curr[i],comp_curr[i]]
+        filter_to_common = False
+    else:
+        _other_adj = adj_curr
+        filter_to_common = True
+    plot_graph(adj = _adj_form,other_adj = _other_adj, out_dir= out_dir,nm =  f"{i}.pdf", 
+               title = f"Component {i+1}", 
+               fntsz = label_sizes[i],size=plot_sizes[i],
+               filter_to_common = filter_to_common)
 
+# i = 2
+# lab = "chemical_name"
+# size = (10,10)
 
-i = 2
-lab = "chemical_name"
-size = (10,10)
+# a_comp_curr = comp_curr[i]
+# _adj_curr = adj_curr.loc[a_comp_curr, a_comp_curr]
+# adj = _adj_curr
+# other_adj = adj_form
+# out_dir = out_dir
+# nm =  f"{i}.pdf"
+# title = f"Component {i+1}"
 
-a_comp_curr = comp_curr[i]
-_adj_curr = adj_curr.loc[a_comp_curr, a_comp_curr]
-adj = _adj_curr
-other_adj = adj_form
-out_dir = out_dir
-nm =  f"{i}.pdf"
-title = f"Component {i+1}"
-
-a_comp_form = comp_form[i]
-_adj_form = adj_form.loc[a_comp_form, a_comp_form]
-adj = _adj_form
-other_adj = adj_curr
-out_dir= out_dir
-nm =  f"{i}.pdf"
-title = f"Component {i+1}"
+# a_comp_form = comp_form[i]
+# _adj_form = adj_form.loc[a_comp_form, a_comp_form]
+# adj = _adj_form
+# other_adj = adj_curr
+# out_dir= out_dir
+# nm =  f"{i}.pdf"
+# title = f"Component {i+1}"

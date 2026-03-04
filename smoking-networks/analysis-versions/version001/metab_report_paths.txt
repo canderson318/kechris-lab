@@ -55,6 +55,11 @@ results/005_1/sub_pathway-node-only-curr-graph.pdf
 results/005_1/chemical_name-node-only-curr-graph.pdf
 results/005_1/sub_pathway-edge-only-curr-graph.pdf
 results/005_1/chemical_name-edge-only-curr-graph.pdf
+
+All Metabolites (not filtering for shared or unique)
+results/006/enrichment/current-superpathway.csv
+results/006/enrichment/current-subpathway.csv
+
 Former Smokers
 results/006/enrichment/form-components/1-superpathway.csv
 results/006/enrichment/form-components/1-subpathway.csv
@@ -112,6 +117,11 @@ results/005_1/sub_pathway-node-only-form-graph.pdf
 results/005_1/chemical_name-node-only-form-graph.pdf
 results/005_1/sub_pathway-edge-only-form-graph.pdf
 results/005_1/chemical_name-edge-only-form-graph.pdf
+
+All Metabolites (not filtering for shared or unique)
+results/006/enrichment/former-superpathway.csv
+results/006/enrichment/former-subpathway.csv
+
 Intersection of Both
 results/006/enrichment/intersection-superpathway.csv
 results/006/enrichment/intersection-subpathway.csv

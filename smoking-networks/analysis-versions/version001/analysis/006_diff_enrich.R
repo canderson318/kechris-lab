@@ -79,24 +79,33 @@ enrichment = function(signif_metab_ids,metadata){
         exp <- as.data.frame(table(metadata[,var]))
         res <- as.data.frame(table(Var1=signif_pathways))
         res <- merge(exp, res, by = "Var1", all.x = TRUE)
-        names(res) <- c(var,  "exp_freq" , "obs_freq")
-        res[is.na(res$obs_freq),"obs_freq"] <- 0
+        names(res) <- c(var,  "exp" , "obs")
+        res[is.na(res$obs),"obs"] <- 0
+        
         res$OR <- NA
         res$fisher.p <- NA
+        res$obs_in <- NA
+        res$obs_out <- NA
+        res$unobs_in <- NA
+        res$unobs_out <- NA
         res[[var]] = as.character(res[[var]])
+
         for(sub in res[,var]){
-            observed = res$obs_freq[res[,var] == sub] # count metabs observed in pathway
-            observed_tot = sum(res$obs_freq) # Total observed metabolites
-            expected = res$exp_freq[res[,var] == sub] # Count metabolites measurable in pathay
-            expected_tot = sum(res$exp_freq) # total measurable metabolites
+            observed = res$obs[res[,var] == sub] # count metabs observed in pathway
+            observed_tot = sum(res$obs) # Total observed metabolites
+            observable = res$exp[res[,var] == sub] # Count metabolites observable in pathay
+            observable_tot = sum(res$exp) # total observable metabolites
+
             # E.G.
             ##             In Pathway    Not in Pathway
             ## observed           215                95
             ## unobserved         148               300
-            tab <- matrix(ncol = 2, nrow = 2,  
+            tab <- matrix(ncol = 2, nrow = 2,  byrow = TRUE,
                 c(observed,            (observed_tot - observed),
-                  expected - observed, (expected_tot - observed_tot) - (expected - observed)
+                  observable - observed, (observable_tot - observed_tot) - (observable - observed)
                  ))
+
+            res[res[,var] == sub, c("obs_in", "obs_out", "unobs_in", "unobs_out") ] = tab[matrix(c(1,1,1,2,2,1,2,2),ncol = 2, byrow = TRUE)]
             
             # fill dataframe with p values
             fish_test = fisher.test(tab, simulate.p.value = FALSE, alternative = "greater")
@@ -107,15 +116,20 @@ enrichment = function(signif_metab_ids,metadata){
         res$fdr.p <- signif(p.adjust(res$fisher.p, method = "fdr"),3)
         res$logOR <- log(res$OR) %>% round(3)
         res <- res[order(res$fdr.p),]
-        res <- res[, c(var, "exp_freq", "obs_freq", "OR", "logOR", "fisher.p", "fdr.p")]
+        res <- res[, c(var, "exp", "obs", "obs_in", "obs_out", "unobs_in", "unobs_out", "OR", "logOR", "fisher.p", "fdr.p")]
         out[[var]] <- res
     }
     return(out)
 }
-# signif_metab_ids = unique(rownames(adj_curr), rownames(adj_form))
+# signif_metab_ids =node_unique_form[[1]]
 # metadata = rowData
-# var = "super_pathway"
-# sub = "Lipid"
+# var = "sub_pathway"
+# sub = "Corticosteroids"
+# a <- tab[1,1] # "Cases WITH the thing I'm testing for"
+# b <- tab[1,2] # "Cases WITHOUT the thing"
+# c <- tab[2,1] # "Controls WITH the thing"
+# d <- tab[2,2] # "Controls WITHOUT the thing"
+# OR <- (a * d) / (b * c)
 
 
 # overall comparisons between each groups metabs to background
@@ -139,6 +153,8 @@ for(i in seq(comp_curr)){
     res_node_comp_curr[[i]] =enrichment(component, rowData)
 }
 
+res_node_comp_curr[[3]]$sub_pathway[1,]
+res_node_comp_form[[3]]$sub_pathway[1,]
 
 # \\\\
 # \\\\
@@ -150,11 +166,11 @@ for(i in seq(comp_curr)){
 
 save_res <- function(res, dir,nm){
     super = res$super_pathway %>% 
-        filter(fisher.p < 1)  
+        filter(fisher.p <= .05)  
     write.csv(super , sprintf("%s%s-superpathway.csv", dir, nm), row.names = FALSE)
 
     sub = res$sub_pathway %>% 
-        filter(fisher.p < 1) 
+        filter(fisher.p <= .05) 
     write.csv( sub , sprintf("%s%s-subpathway.csv",dir, nm), row.names = FALSE)
 }
 

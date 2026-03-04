@@ -1,13 +1,14 @@
 // find $(pwd)/results/006/enrichment/ -type f | sed 's/.*/"&",/'  >> metab_report.typ 
 // cd /Users/canderson/Documents/school/local-kechris-lab/kechris-lab/smoking-networks/analysis-versions/version001 && typst compile metab_report.typ
-// cd /Users/canderson/Documents/school/local-kechris-lab/kechris-lab/smoking-networks/analysis-versions/version001 && open main.pdf
+// cd /Users/canderson/Documents/school/local-kechris-lab/kechris-lab/smoking-networks/analysis-versions/version001 && open metab_report.pdf
 
 
 #set page(height: 11in, width: 8.5in)
 #set text(size: 9pt)
 
 #let is-int-like(s) = s.clusters().all(c => "0123456789".contains(c))
-#let paths = read("metab_report_paths.txt").split("\n")       
+// read in and filter empty lines
+#let paths = read("metab_report_paths.txt").split("\n").filter(x=> x!="") 
 #let today = datetime.today()
 
 #set document(
@@ -43,20 +44,21 @@
 #for ( path ) in paths {
     if path.ends-with(".csv"){
         let tab = csv(path)
-        let num = path.split("/").last().split("-").first()
         
         if path.ends-with("superpathway.csv"){ 
             
-            if is-int-like(num){
+            if is-int-like(path.split("/").last().split("-").first()){
+                let num = path.split("/").last().split("-").first()
                 pagebreak(weak:true)
                 heading(level: 3)[Component #num]
-            }else if num == "curr" {
+            }else if path.contains("curr") and  path.contains("Unique") {
                 pagebreak(weak:true)
                 heading(level: 3)[Unique To Current Smokers]
-            }else if num == "form"{
+            }else if path.contains("form") and  path.contains("Unique") {
                 pagebreak(weak:true)
-                heading(level: 3)[Unique To Former Smokers]
+                heading(level: 3)[Unique To Former Smokers]    
             }
+
 
             table(
                 columns: 7,
@@ -102,8 +104,13 @@
         )
     }else{
         pagebreak(weak:true)
-        heading(level:1)[#strong[#path]]
-        v(1em)
+        if path.starts-with("All"){
+            heading(level:3)[#path]
+            v(1em)
+        }else{
+            heading(level:1)[#strong[#path]]
+            v(1em)
+        }
     }
 }
 

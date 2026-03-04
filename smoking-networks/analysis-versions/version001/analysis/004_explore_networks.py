@@ -82,7 +82,7 @@ def adjGraphs(prec_list, truncation_value, top_N):
         raise ValueError("Graph nodes do not equal adjacency index/columns")
     return graphs[0], adjacencies[0],   graphs[1], adjacencies[1]
 
-# make graphs for all edges > 0
+# make graphs for all edges > t
 theta = list(prec_dict.values())[0]
 truncation_value = tau = 0.04
 top_N = "all"
