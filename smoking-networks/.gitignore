@@ -1,0 +1,11 @@
+*.Rhistory
+*.csv
+*.qs
+*.xlsx
+RCFGL/
+AIC*.txt
+*lambda-grid.txt
+logs
+*.pkl
+*.DS_Store
+
