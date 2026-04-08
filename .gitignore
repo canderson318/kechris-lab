@@ -6,4 +6,6 @@ RCFGL/
 AIC*.txt
 *lambda-grid.txt
 logs
-**.pkl
+*.pkl
+.DS_Store
+
