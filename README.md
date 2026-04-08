@@ -1,5 +1,5 @@
 # Smoking Metabolite Networks
-Research project during my second rotation with Professor Katerina Kechris analyzing smoking effect on metabolite interactions using the [RCFGL](https://doi.org/10.1371/journal.pcbi.1010758) tool. 
+Research project during my second rotation with Professor Katerina Kechris analyzing smoking effect on metabolite interactions using the RCFGL tool ([link to paper](https://doi.org/10.1371/journal.pcbi.1010758)). 
 Find my proposal [here](rotation-proposal.md).
 
 #  Set up
