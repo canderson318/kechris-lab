@@ -36,6 +36,7 @@ This project has the following directory structure:
 ### Script info/purpose
 
 **Extraneous Scripts**
+
 `00_1_make_example_graphs.py`
  - make simple graph plots for illustrative purposes
 
@@ -46,6 +47,7 @@ This project has the following directory structure:
 - playing around with querying KEGG database
 
 **Data Cleaning/Prep**
+
 `001_preprocess_data.R`
 - load data 
 - filter out controls
@@ -53,6 +55,7 @@ This project has the following directory structure:
     - uses Arun's `utils/DataPreProcessCodes.R` 
 
 **Param Exploration**
+
 `002_separate_conditions.py`
 - make separate matrices for each condition
 
@@ -66,6 +69,7 @@ This project has the following directory structure:
 - make table of demographics
 
 **Modeling/Analysis**
+
 `003_condition_specific_networks.py`
 - run RCFGL (`runRCFGL.py`) on each both conditions
 - save precision matrices
