@@ -20,16 +20,27 @@ This project has the following directory structure:
 ---
 .
 ├── **analysis-versions/** (pseudo-version control) \
+
 │   ├── **version-control.txt** (keep track of major changes that warrant a new version)\
+
 │   └── **version001/** (only one version of analysis)\
+
 │       ├── **analysis/** (analysis scripts named in run order )\
+
 │       ├── **logs/** (where i store my alpine slurm logs)\
+
 │       ├── **processed-data/** (intermediate datasets; directory number corresponds to script)\
+
 │       ├── **results/ (outputs** including plots and summary tables; directory number corresponds to script)\
+
 ├── **info/** (notes; e.g. email that explains dataset)\
+
 ├── **raw-data/** (COPDGene metabolite counts and patient data csvs)\
+
 ├── **RCFGL/** (cloned RCFGL repo)\
+
 ├── **environment.yaml**\
+
 └── **setup.sh**\
 
 ---
